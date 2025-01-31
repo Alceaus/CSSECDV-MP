@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gala</title>
+    <link rel="stylesheet" href="css/user-login-register.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="login-register-forms">
+                <div class="switch-container">
+                    <button type="button" id="loginBtn" class="active-btn">LOGIN</button>
+                    <button type="button" id="registerBtn">REGISTER</button>
+                    <span class="slider"></span>
+                </div>
+                <div class="forms-container">
+                    <form id="loginForm" class="active-form">
+                        <h2>LOGIN</h2>
+                        <p class="user-info">as User</p>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="example@email.com" required>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter Password" required>
+                        <div class="remember-forgot-container">
+                            <input type="checkbox" id="remember">
+                            <label for="remember" class="remember-label">Remember me</label>
+                            <a href="forgot-password.html" class="forgot-password-link">Forgot your Password?</a>
+                        </div>
+                        <div class="submit-btn-container"> 
+                            <button type="submit" class="submit-btn login-btn">LOGIN</button>
+                        </div>
+                        <a href="TermsAndConditions.html" class="terms-link">Terms and Conditions</a>
+                    </form>
+                    
+
+                    <form id="registerForm" style="display: none;">
+                        <h2>REGISTER</h2>
+                        <p class="user-info">as User</p>
+                        <div class="input-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="First Name" required>
+                            <label for="mi">M.I</label>
+                            <input type="text" id="mi" placeholder="M.I" required>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Last Name" required>
+                            <label for="suffix">Suffix</label>
+                            <input type="text" id="suffix" placeholder="Suffix">
+                        </div>
+                        <div class="input-group">
+                            <label for="emailRegister">Email</label>
+                            <input type="email" id="emailRegister" placeholder="example@email.com" required>
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="text" id="phone" placeholder="Phone Number (Optional)">
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Address (Optional)</label>
+                            <input type="text" id="address" placeholder="Address (Optional)">
+                        </div>
+                        <div class="input-group">
+                            <label for="createPassword">Create Password</label>
+                            <input type="password" id="createPassword" placeholder="Create Password" required>
+                            <label for="reenterPassword">Re-enter Password</label>
+                            <input type="password" id="reenterPassword" placeholder="Re-enter Password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">REGISTER</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+    <script src="js/user-login-register.js"></script>
+</body>
+</html>

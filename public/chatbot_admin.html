@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Page</title>
+    <link rel="stylesheet" href="css/chatbot_admin.css">
+</head>
+<body>
+    <header>
+        <a href="home_admin.html"><img src="../images/gala-logo.png" alt="Gala Logo" class="logo"></a>
+        <h1>CHATBOT</h1>
+    </header>   
+
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <img src="../images/logo.png" alt="Chat Logo" class="chat-logo">
+                <h2 class="concierge-text">Project GALA Concierge</h2>
+            </div> 
+            <div class="chat-box" id="chat-box"></div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="admin-container">
+            <h2>Add your Questions and Answers!</h2>
+            <div class="input-group">
+                <label for="question">Question:</label>
+                <input type="text" id="question" placeholder="Enter question">
+            </div>
+            <div class="input-group">
+                <label for="answer">Answer:</label>
+                <input type="text" id="answer" placeholder="Enter answer">
+            </div>
+            <div class="button-group">
+                <button onclick="addQA()">Add Q&A</button>
+                <div class="button-gap"></div> 
+                <button onclick="cancelAdd()">Cancel</button> 
+            </div>
+            <h3>Current Q&A:</h3>
+            <div id="qa-list">
+                <table id="qa-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Questions</th>
+                            <th>Answers</th>
+                            <th>Acts.</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/chatbot_admin.js"></script>
+</body>
+</html>

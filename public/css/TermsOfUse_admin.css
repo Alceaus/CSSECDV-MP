@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('../images/Admin Login Background (TOU).png');
+    background-size: cover;
+    background-position: center;
+}
+
+
+.container { 
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #b6d1fa;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h2 {
+    margin-top: 40px;
+}
+
+p, ul {
+    margin-bottom: 40px;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.checkbox-container {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center; 
+    text-align: center; 
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-label {
+    font-size: 20px; 
+    font-weight: bold;
+}
+
+.acknowledgment {
+    margin-top: 100px;
+}

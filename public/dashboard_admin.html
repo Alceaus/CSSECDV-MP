@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gala Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard_admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <a href="home_admin.html"><img src="../images/gala-logo.png" alt="Gala Logo" class="logo"></a>
+        <div id="datetime"></div>
+    </header>
+    <div class="dashboard-container">
+        <div class="dashboard-sidebar">
+            <ul>
+                <li><a href="#" onclick="loadContent('overview')">Overview</a></li>
+                <li><a href="#" onclick="loadContent('users')">Users</a></li>
+                <li><a href="#" onclick="loadContent('volunteerApplication')">Volunteer Application</a></li>
+                <li><a href="#" onclick="loadContent('partnerApplication')">Partner Application</a></li>
+                <li><a href="#" onclick="loadContent('getInTouch')">Get In Touch</a></li> 
+            </ul>
+        </div>
+        <div class="dashboard-content" id="dashboard-content">
+            <div class="dashboard-header">
+                <h1 id="section-title">Dashboard</h1>
+            </div>
+            <div class="dashboard-panels">
+                <div class="panel" id="panel-overview">
+                    <!-- Content for overview panel -->
+                    <div class="panel-content">
+                        <!-- Website Visits Summary -->
+                        <div class="summary-item">
+                            <p><strong>Website Visits:</strong> <span id="website-visits">0</span></p>
+                        </div>
+                        <!-- Users Summary -->
+                        <div class="summary-item">
+                            <h3>Users</h3>
+                            <div id="users-summary-graph" class="summary-graph"></div>
+                        </div>
+                        <!-- Volunteer Applications Summary -->
+                        <div class="summary-item">
+                            <h3>Volunteer Applications</h3>
+                            <div id="volunteer-applications-summary-graph" class="summary-graph"></div>
+                        </div>
+                        <!-- Partner Applications Summary -->
+                        <div class="summary-item">
+                            <h3>Partner Applications</h3>
+                            <div id="partner-applications-summary-graph" class="summary-graph"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" id="panel-reports" style="display: none;">
+                    <!-- Content for reports panel -->
+                    <div class="panel-content">
+                        <p>Access various reports and publications related to your project's activities and outcomes.</p>
+                    </div>
+                </div>
+                <!-- Content for users panel -->
+                <div class="panel" id="panel-users" style="display: none;">
+                    <div class="panel-content">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>ID Number</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-list">
+                                <!-- User list will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel" id="panel-volunteerApplication" style="display: none;">
+                    <!-- Content for volunteer application panel -->
+                    <div class="panel-content">
+                        <table class="application-table">
+                            <thead> 
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Skills/Areas of Interest</th>
+                                    <th>Availability</th>
+                                    <th>Previous Experience</th>
+                                    <th>Why Volunteer</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="volunteer-applications">
+                                <!-- Volunteer applications will be displayed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel" id="panel-partnerApplication" style="display: none;">
+                    <!-- Content for partner application panel -->
+                    <div class="panel-content">
+                        <table class="application-table">
+                            <thead>
+                                <tr>
+                                    <th>Organization Name</th>
+                                    <th>Contact Person</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Project/Area of Collaboration</th>
+                                    <th>Organization Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partner-applications">
+                                <!-- Partner applications will be displayed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel" id="panel-getInTouch" style="display: none;">
+                    <!-- Content for Get in Touch panel -->
+                    <div class="panel-content">
+                        <table class="get-in-touch-table">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody id="get-in-touch-messages">
+                                <!-- Messages will be displayed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Project GALA. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/dashboard_admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer with Us - Project GALA</title>
+    <link rel="stylesheet" href="css/partner-with-us.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <header>
+        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+    </header>
+
+    <main>
+        <section class="partner-with-us">
+            <h1>Volunteer with Us</h1>
+            <p>Do you want to make a difference in the lives of others? We invite passionate and dedicated individuals to volunteer in our future projects. Your time, skills, and enthusiasm can help us achieve our goals and bring about meaningful change. To sign up as a volunteer, please fill out the form below and email it to us at <strong>project.gala.2017@gmail.com</strong>:</p>
+    
+            <br>
+            <!-- Volunteer Registration Form -->
+            <form id="volunteer-form">
+                <label for="full-name"><strong>Full Name:</strong></label>
+                <input type="text" id="full-name" name="full-name" required>
+    
+                <label for="volunteer-email"><strong>Email:</strong></label>
+                <input type="email" id="volunteer-email" name="volunteer-email" required>
+    
+                <label for="volunteer-phone"><strong>Phone:</strong></label>
+                <input type="tel" id="volunteer-phone" name="volunteer-phone">
+    
+                <label for="volunteer-skills"><strong>Skills/Areas of Interest:</strong></label>
+                <textarea id="volunteer-skills" name="volunteer-skills" rows="4"></textarea>
+    
+                <label for="availability"><strong>Availability (Days/Times):</strong></label>
+                <input type="text" id="availability" name="availability" required>
+    
+                <label for="previous-experience"><strong>Previous Volunteer Experience (if any):</strong></label>
+                <textarea id="previous-experience" name="previous-experience" rows="4"></textarea>
+    
+                <label for="why-volunteer"><strong>Why Do You Want to Volunteer with Project GALA?</strong></label>
+                <textarea id="why-volunteer" name="why-volunteer" rows="4"></textarea>
+    
+                <button type="submit">Submit</button>
+            </form>
+            <p>We will review your submission and contact you with information about upcoming volunteer opportunities.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
+            <div class="footer-description">
+                <p>Project G.A.L.A. (Give A Love Anywhere) is a private, non-profit, non-partisan, and non-government organization that strongly advocates for an inclusive society through transformative education.</p>
+            </div>
+            <div class="footer-links">
+                <div class="about-us-section">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="#">Mission & Vision</a></li>
+                        <li><a href="#">Journey</a></li>
+                        <li><a href="#">Founders</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="contact-section">
+                    <h3>Contact Us</h3>
+                    <p>For more immediate concerns, you may reach us at:<br><br></p>
+                    <p><strong>Email Address:</strong> project.gala.2017@gmail.com</p>
+                    <p><strong>Contact Number:</strong><br> 0939 752 7749</p>
+                </div>                
+                <div class="follow-connect">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/GAlAProject"><img src="images/facebook.png" alt="Facebook"></a>
+                    </div>                
+                </div>
+            </div>
+        </div>        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Project GALA. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.js"></script>
+    <script>
+        flatpickr("#availability", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            minDate: "today",
+            altInput: true,
+            altFormat: "F j, Y H:i",
+            plugins: [new confirmDatePlugin({})] 
+        });
+    </script>
+</body>
+</html>
