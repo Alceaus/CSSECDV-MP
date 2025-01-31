@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const db = require('./db');
 const util = require('util');
