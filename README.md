@@ -3,6 +3,8 @@
 First, install required packages using:
 ```bash
 npm install
+   or
+npm install (package required)
 ```
 
 Then run the development server:
