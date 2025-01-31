@@ -99,4 +99,23 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('There was a problem with the fetch operation:', error);
         });
     });
+
+    const photo = document.getElementById('photo');
+    const errorMessage = document.getElementById('photo-error');
+
+    photo.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const fileType = file.type;
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+            if (!validTypes.includes(fileType)) {
+                errorMessage.textContent = 'Please upload a valid image (JPEG, PNG, or GIF only).';
+                errorMessage.style.color = 'red';
+                photo.value = '';
+            } else {
+                errorMessage.textContent = '';
+            }
+        }
+    });
 });
