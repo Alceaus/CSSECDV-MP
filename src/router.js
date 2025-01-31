@@ -5,6 +5,14 @@ const db = require('./db');
 const util = require('util');
 const query = util.promisify(db.query).bind(db);
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: 'Too many login attempts. Please try again later.'
+});
+
+router.use('/user/login', loginLimiter);
+
 router.get('/logout', async (req, res) => {
     req.session.destroy(err => {
         if (err) {
