@@ -12,7 +12,7 @@ const loginLimiter = rateLimit({
     message: 'Too many login attempts. Please try again later.'
 });
 
-router.use('/user/login', loginLimiter);
+router.use('/login', loginLimiter);
 
 router.get('/logout', async (req, res) => {
     req.session.destroy(err => {
@@ -35,7 +35,7 @@ router.get('/currentQA', async (req, res) => {
     }
 });
 
-router.post('/user/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const sql = 'SELECT * FROM user WHERE Email = ? AND Role = ?';
