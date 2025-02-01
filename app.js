@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
+const fs = require('fs');
 const app = express();
 const routes = require('./src/router');
 const initData = require('./src/initData');
