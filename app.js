@@ -16,6 +16,30 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use((req, res, next) => {
+    if (req.path.endsWith('.html')) {
+        const newPath = req.path.slice(0, -5);
+        res.redirect(301, newPath);
+    } else {
+        next();
+    }
+});
+
+app.use((req, res, next) => {
+    const extname = path.extname(req.path);
+    if (!extname) {
+        const newPath = path.join(__dirname, 'public', `${req.path}.html`);
+        if (fs.existsSync(newPath)) {
+            req.url += '.html';
+        }
+    }
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'home-default.html'));
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
