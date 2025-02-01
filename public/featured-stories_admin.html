@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Featured Stories</title>
+    <title>Project GALA | Featured Stories</title>
     <link rel="stylesheet" href="css/featured-stories_admin.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
     <header>
-        <a href="home_admin.html"><img src="../images/gala-logo.png" alt="Gala Logo" class="logo"></a>
+        <a href="home_admin.html"><img src="images/gala-logo.png" alt="Gala Logo" class="logo"></a>
         <div id="datetime"></div>
     </header>
     
@@ -29,13 +30,13 @@
                     <a href="contact_admin.html">CONTACT US</a>
                 </div>
             </li>
-            <li class="logout"><a href="index_admin.html">LOGOUT</a></li>
+            <li class="logout"><a href="home-default.html">LOGOUT</a></li>
         </ul>
     </nav>
 
     <div class="album-section">
         <div class="create-album-container">
-            <button class="create-album-button" onclick="openCreateAlbumModal()">
+            <button class="create-album-button" onclick="openCreateStoryModal()">
                 <div class="create-album-icon">
                     <span>&#43;</span>
                 </div>
@@ -45,8 +46,8 @@
 
         <div id="createAlbumModal" class="modal">
             <div class="modal-content" id="modalContent">
-                <span class="close" onclick="closeCreateAlbumModal()">&times;</span>
-                <form id="createAlbumForm" onsubmit="event.preventDefault(); createAlbum();">
+                <span class="close" onclick="closeCreateStoryModal()">&times;</span>
+                <form id="createAlbumForm" onsubmit="event.preventDefault(); createStory();">
                     <div class="form-group">
                         <label for="albumTitle">Story Title:</label>
                         <input type="text" id="albumTitle" name="albumTitle" required>
@@ -83,6 +84,45 @@
                         </select>
                     </div>                    
                     <button type="submit" class="submit-button">Create</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="editAlbumModal" class="modal">
+            <div class="modal-content" id="modalContent">
+                <span class="close" onclick="closeEditStoryModal()">&times;</span>
+                <form id="editAlbumForm" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="albumTitle">Story Title:</label>
+                        <input type="text" id="editAlbumTitle" name="albumTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumCaption">Description:</label>
+                        <textarea id="editAlbumCaption" name="albumCaption" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumAuthor">Author:</label>
+                        <input type="text" id="editAlbumAuthor" name="albumAuthor" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumRole">Author's Role:</label>
+                        <input type="text" id="editAlbumRole" name="albumRole" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumHighlights">Story Highlights:</label>
+                        <textarea id="editAlbumHighlights" name="albumHighlights" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="albumCategory">Category:</label>
+                        <select id="editAlbumCategory" name="albumCategory" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="Educational">Educational</option>
+                            <option value="Community Outreach">Community Outreach</option>
+                            <option value="Advocacy">Advocacy</option>
+                            <option value="Volunteer Engagement">Volunteer Engagement</option>
+                        </select>
+                    </div>                    
+                    <button type="submit" class="submit-button">Save</button>
                 </form>
             </div>
         </div>

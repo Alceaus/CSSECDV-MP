@@ -184,43 +184,76 @@ button:hover {
     margin-bottom: -150px;
 }
 
-@media screen and (max-width: 768px) {
-    .login-container {
-        justify-content: center;
+@media (max-width: 1200px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .login-box {
-        margin-right: 0;
+    .footer-description, .about-us-section, .contact-section, .follow-connect {
+        margin: 10px 0;
+        text-align: center;
+        margin: 10px;
+    }
+
+    .slideshow-container {
+        width: 100%;
     }
 }
 
-@media screen and (max-width: 480px) {
-    .login-box {
-        width: 90%;
-        margin-right: 0;
-        border-radius: 0;
-    }
-
-    .person-icon {
-        width: 100px;
-        height: 100px;
-        margin-top: -80px;
-    }
-
-    .login-header h2 {
-        font-size: 30px;
-    }
-
-    .login-header p {
-        font-size: 16px;
-    }
-
-    .options {
+@media (max-width: 768px) {
+    nav ul {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
-    button {
-        width: 100%;
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .footer-content {
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-links div {
+        margin: 10px 0;
+    }
+
+    .footer-bottom {
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .header, .nav, .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header img, .footer-logo {
+        height: 50px;
+        margin: 0 auto;
+    }
+
+    .footer-description, .about-us-section, .contact-section, .follow-connect {
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        padding: 0;
+    }
+
+    .footer-links ul li {
+        margin-bottom: 5px;
+    }
+
+    .footer-bottom {
+        padding: 10px;
     }
 }

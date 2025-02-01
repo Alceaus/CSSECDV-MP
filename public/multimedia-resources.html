@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Gala</title>
+    <title>Project GALA | Multimedia Resources</title>
+    <link rel="stylesheet" href="css/LOGIN-OUT.css">
     <link rel="stylesheet" href="css/multimedia-resources.css">
+    <link rel="stylesheet" href="css/donate-popup.css">
+    <link rel="stylesheet" href="css/iframe.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
     <header>
-        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
-        <div id="datetime"></div>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
     </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
 
     <nav>
         <ul>
@@ -22,15 +46,7 @@
                     <a href="Founders.html">FOUNDERS</a>
                 </div>
             </li>
-            <li class="dropdown">
-                <a href="#" data-arrow>PROGRAMS</a>
-                <div class="dropdown-content programs-dropdown">
-                    <a href="#">EDUCATIONAL</a>
-                    <a href="#">COMMUNITY OUTREACH</a>
-                    <a href="#">ADVOCACY</a>
-                    <a href="#">VOLUNTEER ENGAGEMENT</a>
-                </div>
-            </li>
+            
             <li class="dropdown">
                 <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
                 <div class="dropdown-content reports-dropdown"> 
@@ -41,7 +57,7 @@
             <li class="dropdown">
                 <a href="#" data-arrow> CONTACT</a>
                 <div class="dropdown-content contact-dropdown"> 
-                    <a href="#">CONTACT US</a>
+                    <a href="Contact-us_user.html">CONTACT US</a>
                     <a href="get-in-touch.html">GET IN TOUCH</a>
                     <a href="partner-with-us.html">PARTNER WITH US</a>
                     <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
@@ -50,69 +66,131 @@
             <li class="dropdown">
                 <a href="Feedback.html" data-arrow> FEEDBACK</a>
             </li>  
-            <li class="dropdown logout">
-                <a href="#logout" data-arrow>MY ACCOUNT</a>
-                <div class="dropdown-content logout-dropdown">
-                    <a href="My_Account.html">ACCOUNT SETTINGS</a>
-                    <a href="home-default.html">LOGOUT</a>
-                </div>
+            <li id="account-link" class="dropdown">
+                <!-- Placeholder content to be replaced by JavaScript -->
             </li>
         </ul>
     </nav>
     
-    <main>
-        <section class="events-section upcoming-events">
-            <div class="event-cards">
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 1">
-                    <div class="event-date">Oct 23</div>
-                    <h3>Upcoming Event 1</h3>
-                    <p>Location Details</p>
-                    <a href="#">See More</a>
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+    <div class="background-container">
+        <main>
+            <section class="events-section upcoming-events">
+                <div class="event-cards">
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 1">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 1</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 2">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 2</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 3">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 3</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 1">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 1</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 2">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 2</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 3">
+                        <div class="event-date">Oct 23</div>
+                        <h3>Upcoming Event 3</h3>
+                        <p>Location Details</p>
+                        <a href="#">See More</a>
+                    </div>
                 </div>
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 2">
-                    <div class="event-date">Oct 23</div>
-                    <h3>Upcoming Event 2</h3>
-                    <p>Location Details</p>
-                    <a href="#">See More</a>
+            </section>
+    
+            <section class="events-section previous-events">
+                <div class="event-cards">
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 4">
+                        <div class="event-date">Sep 15</div>
+                        <h3>Past Event 1</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 5">
+                        <div class="event-date">Aug 10</div>
+                        <h3>Past Event 2</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 6">
+                        <div class="event-date">Jul 20</div>
+                        <h3>Past Event 3</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 4">
+                        <div class="event-date">Sep 15</div>
+                        <h3>Past Event 1</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 5">
+                        <div class="event-date">Aug 10</div>
+                        <h3>Past Event 2</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 6">
+                        <div class="event-date">Jul 20</div>
+                        <h3>Past Event 3</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 4">
+                        <div class="event-date">Sep 15</div>
+                        <h3>Past Event 1</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 5">
+                        <div class="event-date">Aug 10</div>
+                        <h3>Past Event 2</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
+                    <div class="event-card">
+                        <img src="images/background_blue.png" alt="Event 6">
+                        <div class="event-date">Jul 20</div>
+                        <h3>Past Event 3</h3>
+                        <p>Location details</p>
+                        <a href="#">See More</a>
+                    </div>
                 </div>
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 3">
-                    <div class="event-date">Oct 23</div>
-                    <h3>Upcoming Event 3</h3>
-                    <p>Location Details</p>
-                    <a href="#">See More</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="events-section previous-events">
-            <div class="event-cards">
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 4">
-                    <div class="event-date">Sep 15</div>
-                    <h3>Past Event 1</h3>
-                    <p>Location details</p>
-                    <a href="#">See More</a>
-                </div>
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 5">
-                    <div class="event-date">Aug 10</div>
-                    <h3>Past Event 2</h3>
-                    <p>Location details</p>
-                    <a href="#">See More</a>
-                </div>
-                <div class="event-card">
-                    <img src="images/background_blue.png" alt="Event 6">
-                    <div class="event-date">Jul 20</div>
-                    <h3>Past Event 3</h3>
-                    <p>Location details</p>
-                    <a href="#">See More</a>
-                </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -124,12 +202,10 @@
                 <div class="about-us-section">
                     <h3>About Us</h3>
                     <ul>
-                        <li><a href="#">Mission & Vision</a></li>
-                        <li><a href="#">Journey</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Board of Directors</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="Our_Journey.html">Journey</a></li>
+                        <li><a href="Founders.html">Founders</a></li>
+                        <li><a href="TermsAndConditions.html">Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -151,6 +227,7 @@
         </div>
     </footer>
     
-    <script src="js/multimedia-resources.js"></script>
+    <script src="js/multimedia_resources.js"></script>
+    <script src="js/donate-popup.js"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project GALA | Featured Stories</title>
+    <title>Project GALA | Contact Us</title>
     <link rel="stylesheet" href="css/LOGIN-OUT.css">
-    <link rel="stylesheet" href="css/featured-stories_user.css">
+    <link rel="stylesheet" href="css/Contact-us_user.css">
     <link rel="stylesheet" href="css/donate-popup.css">
     <link rel="stylesheet" href="css/iframe.css">
     <link rel="icon" href="images/logo.png" type="image/png">
@@ -71,35 +71,39 @@
             </li>
         </ul>
     </nav>
-
+    
     <iframe src="chatbot.html" class="popup-iframe"></iframe>
 
     <div class="background-container">
-        <div class="outer-container">
-            <div class="content-container">
-                <h1>Featured Stories</h1>
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <p class="contact-intro">For any general inquiries, feedback, or additional information, feel free to get in touch. We are based in Metro Manila, Philippines, and are eager to hear from you. Contact us via:</p>
+            <div class="contact-options">
+                <div class="contact-option">
+                    <img src="images/Contact Us/Address.png" alt="Address Icon">
+                    <h3>Address</h3>
+                    <p id="address"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Clock.png" alt="Business Hours Icon">
+                    <h3>Business Hours</h3>
+                    <p id="business-hours"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Phone.png" alt="Phone Icon">
+                    <h3>Contact Number</h3>
+                    <p id="contact-number"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Email.png" alt="Email Icon">
+                    <h3>Email Address</h3>
+                    <p id="email-address"></p>
+                </div>
             </div>
-            <div class="main-story-container">
-                <!-- Added stories will be stored here -->
-            </div>
+            <p class="contact-outro">We look forward to connecting with you and working together to create a more inclusive and supportive community.</p>
         </div>
     </div>
     
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="author-image-container">
-                <img id="modal-author-image" src="" alt="author's image" class="author-image">
-            </div>
-            <div class="author-details">
-                <p id="modal-author-name" class="author-name">Author's name</p>
-                <p id="modal-author-role" class="author-role">Author's role</p>
-            </div>
-            <h2 id="modal-story-title">Story Title</h2>
-            <p id="modal-story-content">Story content goes here...</p>
-        </div>
-    </div>
-
     <footer>
         <div class="footer-content">
             <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
@@ -135,7 +139,7 @@
         </div>
     </footer>
     
-    <script src="js/featured-stories_user.js"></script>
+    <script src="js/Contact_us-user.js"></script>
     <script src="js/donate-popup.js"></script>
 </body>
 </html>

@@ -4,13 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Gala</title>
+    <link rel="stylesheet" href="css/LOGIN-OUT.css">
     <link rel="stylesheet" href="css/Feedback.css">
+    <link rel="stylesheet" href="css/donate-popup.css">
+    <link rel="stylesheet" href="css/iframe.css">
 </head>
 <body>
     <header>
-        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
-        <div id="datetime"></div>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
     </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
 
     <nav>
         <ul>
@@ -22,15 +45,7 @@
                     <a href="Founders.html">FOUNDERS</a>
                 </div>
             </li>
-            <li class="dropdown">
-                <a href="#" data-arrow>PROGRAMS</a>
-                <div class="dropdown-content programs-dropdown">
-                    <a href="#">EDUCATIONAL</a>
-                    <a href="#">COMMUNITY OUTREACH</a>
-                    <a href="#">ADVOCACY</a>
-                    <a href="#">VOLUNTEER ENGAGEMENT</a>
-                </div>
-            </li>
+            
             <li class="dropdown">
                 <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
                 <div class="dropdown-content reports-dropdown"> 
@@ -41,7 +56,7 @@
             <li class="dropdown">
                 <a href="#" data-arrow> CONTACT</a>
                 <div class="dropdown-content contact-dropdown"> 
-                    <a href="#">CONTACT US</a>
+                    <a href="Contact-us_user.html">CONTACT US</a>
                     <a href="get-in-touch.html">GET IN TOUCH</a>
                     <a href="partner-with-us.html">PARTNER WITH US</a>
                     <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
@@ -50,79 +65,88 @@
             <li class="dropdown">
                 <a href="Feedback.html" data-arrow> FEEDBACK</a>
             </li>  
-            <li class="dropdown logout">
-                <a href="#logout" data-arrow>MY ACCOUNT</a>
-                <div class="dropdown-content logout-dropdown">
-                    <a href="My_Account.html">ACCOUNT SETTINGS</a>
-                    <a href="home-default.html">LOGOUT</a>
-                </div>
+            <li id="account-link" class="dropdown">
+                <!-- Placeholder content to be replaced by JavaScript -->
             </li>
         </ul>
     </nav>
 
-    <section class="testimonials">
-        <h2>What Clients Say</h2>
-        <p>We place huge value on strong relationships and have seen the benefit they bring to our business. Customer feedback is vital in helping us to get it right.</p>
-        <button class="feedback-btn" onclick="openBothPopups()">Send Us Your Feedback</button>
-        <div class="testimonial-container">
-            <div class="testimonial-cards">
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                    <h3>Nat Reynolds</h3>
-                    <p>Chief Accountant</p>
-                    <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                    <h3>Celia Almeda</h3>
-                    <p>Secretary</p>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Bob Roberts" class="testimonial-img">
-                    <h3>Bob Roberts</h3>
-                    <p>Sales Manager</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Jane Doe" class="testimonial-img">
-                    <h3>Jane Doe</h3>
-                    <p>Marketing Specialist</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Bob Roberts" class="testimonial-img">
-                    <h3>Bob Roberts</h3>
-                    <p>Sales Manager</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Jane Doe" class="testimonial-img">
-                    <h3>Jane Doe</h3>
-                    <p>Marketing Specialist</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Bob Roberts" class="testimonial-img">
-                    <h3>Bob Roberts</h3>
-                    <p>Sales Manager</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Jane Doe" class="testimonial-img">
-                    <h3>Jane Doe</h3>
-                    <p>Marketing Specialist</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
-                </div>
-                <div class="testimonial-card">
-                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Jane Doe" class="testimonial-img">
-                    <h3>Jane Doe</h3>
-                    <p>Marketing Specialist</p>
-                    <p>Quam viverra orci sagittis eu volutpat odio facilisis mauris sit amet. Elit duis tristique sollicitudin nibh sit amet commodo nulla.</p>
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+    
+    <div class="background-container">
+        <div class="main-container">
+            <div class="testimonials">
+                <h2>What Clients Say</h2>
+                <p>We place huge value on strong relationships and have seen the benefit they bring to our business. Customer feedback is vital in helping us to get it right.</p>
+                <button class="feedback-btn" onclick="openBothPopups()">Send Us Your Feedback</button>
+                <div class="testimonial-container">
+                    <div class="testimonial-cards">
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
+                            <h3>Nat Reynolds</h3>
+                            <p>Chief Accountant</p>
+                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
+                            <h3>Celia Almeda</h3>
+                            <p>Secretary</p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
+                            <h3>Nat Reynolds</h3>
+                            <p>Chief Accountant</p>
+                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
+                            <h3>Celia Almeda</h3>
+                            <p>Secretary</p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
+                            <h3>Nat Reynolds</h3>
+                            <p>Chief Accountant</p>
+                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
+                            <h3>Celia Almeda</h3>
+                            <p>Secretary</p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
+                            <h3>Nat Reynolds</h3>
+                            <p>Chief Accountant</p>
+                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
+                            <h3>Celia Almeda</h3>
+                            <p>Secretary</p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
+                            <h3>Nat Reynolds</h3>
+                            <p>Chief Accountant</p>
+                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
+                            <h3>Celia Almeda</h3>
+                            <p>Secretary</p>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
+                        </div>
+                        <!-- More testimonial cards... -->
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     
 
     <div id="feedbackPopup" class="popup">
@@ -139,9 +163,6 @@
                 </div>
                 <input type="email" placeholder="Enter email..." required>
                 <textarea placeholder="Enter text..."></textarea>
-                <div class="login-notification" id="loginNotification">
-                    <span>You need to log-in first. Please login to continue.</span>
-                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -163,12 +184,10 @@
                 <div class="about-us-section">
                     <h3>About Us</h3>
                     <ul>
-                        <li><a href="#">Mission & Vision</a></li>
-                        <li><a href="#">Journey</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Board of Directors</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="../public/Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="../public/Our_Journey.html">Journey</a></li>
+                        <li><a href="../public/Founders.html">Founders</a></li>
+                        <li><a href="../public/TermsAndConditions.html">Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -191,5 +210,6 @@
     </footer>
     
     <script src="js/Feedback.js"></script>
+    <script src="js/donate-popup.js"></script>
 </body>
 </html>

@@ -3,49 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner with Us - Project GALA</title>
+    <title>Project GALA | Partner with Us</title>
     <link rel="stylesheet" href="css/partner-with-us.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
     <header>
-        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo" onclick="redirectToUserJS()">
     </header>
 
-    <main>
-        <section class="partner-with-us">
-            <h1>Partner with Us</h1>
-            <p>Are you an organization interested in collaborating on a project with us? We are always looking for like-minded partners to join us in making a positive impact. Partnering with Project GALA can help amplify our efforts and bring more resources to the communities we serve.</p>
-            <p>To register as a partner, please fill out the form below and email it to us at <strong>project.gala.2017@gmail.com</strong>.</p>
-    
-            <br>
-            <!-- Partner Registration Form -->
-            <form>
-                <label for="organization-name"><strong>Organization Name:</strong></label>
-                <input type="text" id="organization-name" name="organization-name" required>
-    
-                <label for="contact-person"><strong>Contact Person:</strong></label>
-                <input type="text" id="contact-person" name="contact-person" required>
-    
-                <label for="email"><strong>Email:</strong></label>
-                <input type="email" id="email" name="email" required>
-    
-                <label for="phone"><strong>Phone:</strong></label>
-                <input type="tel" id="phone" name="phone">
-    
-                <label for="website"><strong>Website (if applicable):</strong></label>
-                <input type="url" id="website" name="website">
-    
-                <label for="project"><strong>Proposed Project/Area of Collaboration:</strong></label>
-                <textarea id="project" name="project" rows="4" required></textarea>
-    
-                <label for="organization-description"><strong>Brief Description of Your Organization:</strong></label>
-                <textarea id="organization-description" name="organization-description" rows="4" required></textarea>
-    
-                <button type="submit">Submit</button>
-            </form>
-            <p>We will review your submission and get back to you promptly to discuss potential collaborations.</p>
-        </section>
-    </main>
+    <div class="background-container">
+        <main>
+            <section class="partner-with-us">
+                <span class="back-arrow" onclick="goBack()">&#10140;</span>
+                <h1>Partner with Us</h1>
+                <p>Are you an organization interested in collaborating on a project with us? We are always looking for like-minded partners to join us in making a positive impact. Partnering with Project GALA can help amplify our efforts and bring more resources to the communities we serve.</p>
+                <p>To register as a partner, please fill out the form below and email it to us at <strong>project.gala.2017@gmail.com</strong>.</p>
+        
+                <br>
+                <!-- Partner Registration Form -->
+                <form id="partner-form" onsubmit="event.preventDefault(); addPartner();">
+                    <label for="organization-name"><strong>Organization Name:</strong></label>
+                    <input type="text" id="organization-name" name="organization-name" required>
+                
+                    <label for="contact-person"><strong>Contact Person:</strong></label>
+                    <input type="text" id="contact-person" name="contact-person" required>
+                
+                    <label for="email"><strong>Email:</strong></label>
+                    <input type="email" id="email" name="email" required>
+                
+                    <label for="phone"><strong>Phone:</strong></label>
+                    <input type="tel" id="phone" name="phone">
+                
+                    <label for="website"><strong>Website (if applicable):</strong></label>
+                    <input type="url" id="website" name="website">
+                
+                    <label for="project"><strong>Proposed Project/Area of Collaboration:</strong></label>
+                    <textarea id="project" name="project" rows="4" required></textarea>
+                
+                    <label for="organization-description"><strong>Brief Description of Your Organization:</strong></label>
+                    <textarea id="organization-description" name="organization-description" rows="4" required></textarea>
+                
+                    <button type="submit">Submit</button>
+                </form>
+                <p>We will review your submission and get back to you promptly to discuss potential collaborations.</p>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -57,11 +61,10 @@
                 <div class="about-us-section">
                     <h3>About Us</h3>
                     <ul>
-                        <li><a href="#">Mission & Vision</a></li>
-                        <li><a href="#">Journey</a></li>
-                        <li><a href="#">Founders</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="Our_Journey.html">Journey</a></li>
+                        <li><a href="Founders.html">Founders</a></li>
+                        <li><a href="TermsAndConditions.html">Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -82,5 +85,7 @@
             <p>&copy; 2024 Project GALA. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="js/partner-with-us.js"></script>
 </body>
 </html>

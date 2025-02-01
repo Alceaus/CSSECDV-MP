@@ -170,7 +170,7 @@ function editAlbum(albumId) {
         year: yearElement.innerHTML,
         category: categoryElement.innerHTML
     };
-s
+
     titleElement.innerHTML = `<label for="editTitle-${albumId}"><strong>Album Title:</strong></label>
                                 <input type="text" id="editTitle-${albumId}" value="${title}" required>`;
     yearElement.innerHTML = `<label for="editYear-${albumId}"><strong>Year:</strong></label>
@@ -296,5 +296,3 @@ function handleFileSelect(event) {
         reader.readAsDataURL(file);
     });
 }
-
-

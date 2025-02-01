@@ -13,6 +13,23 @@ body {
     overflow-x: hidden;
 }
 
+.donate-button {
+    background-color: #4a82d8;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.donate-button:hover {
+    background-color: #e65a50;
+}
 
 .spacer-container {
     height: 500px; 
@@ -22,16 +39,11 @@ body {
 header {
     background-color: #22529b;
     color: white;
-    padding: 20px -5px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    box-sizing: border-box; 
-    z-index: 2;
-    overflow: hidden;
 }
-
 
 .logo {
     height: 80px; 
@@ -510,6 +522,10 @@ footer p {
     position: stretch;
 }
 
+.mission:hover, .vision:hover, .purpose:hover {
+    transform: scale(1.05);
+}
+
 .mission, .vision, .purpose {
     background-color: rgba(54, 89, 155, 0.5);
     color: white;
@@ -522,18 +538,22 @@ footer p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease;
 }
 
 .mission-icon, .vision-icon, .purpose-icon {
     background-color: rgba(54, 89, 155, 0.5);
     border-radius: 15px;
-    padding: 20px;
+    width: 250px;
+    height: 200px;
+    padding: 10px;
     display: inline-block;
     margin-bottom: 20px;
 }
 
 .mission-icon img, .vision-icon img, .purpose-icon img {
-    width: 100px;
+    width: 200px;
+    height: 200px;
     display: block;
     margin: 0 auto;
 }
@@ -543,20 +563,15 @@ footer p {
     margin-bottom: 10px;
 }
 
-.line {
-    height: 2px;
-    background-color: white;
-    width: 60px;
-    margin: 10px auto;
-}
-
 .mission p, .vision p, .purpose p {
+    margin: 15px;
     font-size: 1em;
     line-height: 1.5;
+    text-align: justify;
 }
 
 .vertical-line {
-    width: 2px;
+    width: 3px;
     background-color: white;
     height: auto;
     margin: 0 20px;

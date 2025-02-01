@@ -92,7 +92,7 @@ form {
     height: 300px; 
     padding: 50px;
     background-color: #f2f2f2;
-    border-radius: 8px;
+    border-radius: 20px;
     margin-bottom: 20px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -185,7 +185,7 @@ form input[type="password"] {
 
 #registerForm {
     height: 450px; 
-    width: 600px;
+    width: 500px;
 }
 
 .forms-container .input-group {

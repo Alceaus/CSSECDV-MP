@@ -48,3 +48,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/resources')
+        .then(response => response.json())
+        .then(data => {
+            const resourcesContainer = document.getElementById('resources-container');
+            data.forEach(resource => {
+                const resourceElement = document.createElement('div');
+                resourceElement.classList.add('event-card');
+                const creationDate = new Date(resource.creationDate);
+                const formattedDate = creationDate.toLocaleString('default', { month: 'short', day: 'numeric' });
+
+                resourceElement.innerHTML = `
+                    <img src="${resource.image}" alt="Resource">
+                    <div class="event-date">${formattedDate}</div>
+                    <h3>${resource.title}</h3>
+                    <p>${resource.description}</p>
+                    <button onclick="location.href='/resource/${resource.id}'">See More</button>
+                `;
+                resourcesContainer.appendChild(resourceElement);
+            });
+        });
+});

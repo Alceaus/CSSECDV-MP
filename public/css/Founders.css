@@ -1,7 +1,15 @@
-html, body {
-    height: 100%;
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #b6d1fa; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: auto; 
+    overflow-x: hidden;
 }
 
 .container {
@@ -24,6 +32,24 @@ html, body {
     background-color: #B6D1FA;
     box-sizing: border-box;
     overflow: auto;
+}
+
+.donate-button {
+    background-color: #4a82d8;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.donate-button:hover {
+    background-color: #e65a50;
 }
 
 footer {
@@ -96,11 +122,6 @@ nav ul li a[data-arrow]:hover::after {
     border-bottom: 3px solid white; 
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #b6d1fa;
-}
-
 header {
     background-color: #22529b;
     color: white;
@@ -114,13 +135,6 @@ header {
     height: 80px;
     width: auto;
     margin-left: 20px;
-}
-
-#datetime {
-    font-size: 18px;
-    color: white;
-    margin-right: 20px;
-    margin-top: 30px;
 }
 
 nav {
@@ -259,6 +273,14 @@ nav ul li.logout {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
     z-index: 1;
     margin-left: -20px;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto; 
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 300px;
 }
 
 footer {
@@ -497,6 +519,9 @@ footer p {
 }
 
 
+/* ----------------------------------------------------- BODY -----------------------------*/
+
+
 .founders-container {
     margin: 40px;
     text-align: left;
@@ -516,7 +541,14 @@ footer p {
     width: 50%;
 }
 
+.founders-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
 .founder {
+    flex: 0 0 48%;
     display: flex;
     align-items: flex-start;
     padding: 20px;
@@ -546,14 +578,43 @@ footer p {
     display: inline-block;
 }
 
+.founder-description-container {
+    position: relative;
+}
 
 .founder-description {
-    height: 200px;
+    max-height: 200px;
+    min-height: 200px;
     color: white;
     background-color: hsl(216, 61%, 49%, 0.5);
-    padding: 10px;
+    padding: 10px 20px;
     margin-left: 20px;
-    margin-top:-10px;
+    margin-top: -10px;
     border-radius: 10px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    text-align: justify;
 }
+
+
+.show-more {
+    display: none;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    cursor: pointer;
+    background-color: hsl(216, 61%, 49%, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.show-more.rotate {
+    transform: rotate(180deg);
+}
+
+
 

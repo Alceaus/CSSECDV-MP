@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Project GALA | Contact Us</title>
     <link rel="stylesheet" href="css/contact_admin.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body> 
     <header>
-        <a href="home_admin.html"><img src="../images/gala-logo.png" alt="Gala Logo" class="logo"></a>
+        <a href="home_admin.html"><img src="images/gala-logo.png" alt="Gala Logo" class="logo"></a>
         <div id="datetime"></div>
     </header>
 
@@ -18,7 +19,6 @@
                 <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
                 <div class="dropdown-content reports-dropdown"> 
                     <a href="featured-stories_admin.html">FEATURED STORIES</a>
-                    <a href="#">ANNUAL REPORTS</a>
                     <a href="multimedia_resources_admin.html">MULTIMEDIA RESOURCES</a>
                 </div>
             </li>
@@ -30,7 +30,7 @@
                     <a href="contact_admin.html">CONTACT US</a>
                 </div>
             </li>
-            <li class="logout"><a href="index_admin.html">LOGOUT</a></li>
+            <li class="logout"><a href="home-default.html">LOGOUT</a></li>
         </ul>
     </nav>
 
@@ -39,130 +39,125 @@
             <h2 class="styled-title where-to-find-us-title"><u>Where to Find Us</u></h2>
             <div class="contact-details">
                 <p>For more immediate concerns, you may reach us at:</p>
-    
-                <div class="contact-item">
-                    <label for="address"><strong>ADDRESS:</strong></label>
-                    <div class="input-with-button">
-                        <input type="text" id="address" name="address" placeholder="Enter address here">
-                        <button class="save-button" onclick="saveField('address')">Save</button>
-                        <button class="address-cancel-button">Cancel</button>
+                <form id="contactForm" onsubmit="event.preventDefault(); addContactInfo();">
+                    <div class="contact-item">
+                        <label for="address"><strong>ADDRESS:</strong></label>
+                        <div class="input-with-button">
+                            <input type="text" id="address" name="address" placeholder="Enter address here">
+                        </div>
                     </div>
-                </div>
-    
-                <div class="form-group business-hours">
-                    <label for="business-hours">BUSINESS HOURS:</label>
-                    <div class="days">
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="monday" name="monday">
-                            <label for="monday">Mon</label>
-                            <div class="time-input">
-                                <label for="monday-start-time">Start Time:</label>
-                                <input type="time" id="monday-start-time" name="monday-start-time">
-                                <label for="monday-end-time">End Time:</label>
-                                <input type="time" id="monday-end-time" name="monday-end-time">
+        
+                    <div class="form-group business-hours">
+                        <label for="business-hours">BUSINESS HOURS:</label>
+                        <div class="days">
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="monday" name="monday">
+                                <label for="monday">Mon</label>
+                                <div class="time-input">
+                                    <label for="monday-start-time">Start Time:</label>
+                                    <input type="time" id="monday-start-time" name="monday-start-time">
+                                    <label for="monday-end-time">End Time:</label>
+                                    <input type="time" id="monday-end-time" name="monday-end-time">
+                                </div>
                             </div>
-                        </div>
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="tuesday" name="tuesday">
-                            <label for="tuesday">Tue</label>
-                            <div class="time-input">
-                                <label for="tuesday-start-time">Start Time:</label>
-                                <input type="time" id="tuesday-start-time" name="tuesday-start-time">
-                                <label for="tuesday-end-time">End Time:</label>
-                                <input type="time" id="tuesday-end-time" name="tuesday-end-time">
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="tuesday" name="tuesday">
+                                <label for="tuesday">Tue</label>
+                                <div class="time-input">
+                                    <label for="tuesday-start-time">Start Time:</label>
+                                    <input type="time" id="tuesday-start-time" name="tuesday-start-time">
+                                    <label for="tuesday-end-time">End Time:</label>
+                                    <input type="time" id="tuesday-end-time" name="tuesday-end-time">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="wednesday" name="wednesday">
-                            <label for="wednesday">Wed</label>
-                            <div class="time-input">
-                                <label for="wednesday-start-time">Start Time:</label>
-                                <input type="time" id="wednesday-start-time" name="wednesday-start-time">
-                                <label for="wednesday-end-time">End Time:</label>
-                                <input type="time" id="wednesday-end-time" name="wednesday-end-time">
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="wednesday" name="wednesday">
+                                <label for="wednesday">Wed</label>
+                                <div class="time-input">
+                                    <label for="wednesday-start-time">Start Time:</label>
+                                    <input type="time" id="wednesday-start-time" name="wednesday-start-time">
+                                    <label for="wednesday-end-time">End Time:</label>
+                                    <input type="time" id="wednesday-end-time" name="wednesday-end-time">
+                                </div>
+                            </div>
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="thursday" name="thursday">
+                                <label for="thursday">Thu</label>
+                                <div class="time-input">
+                                    <label for="thursday-start-time">Start Time:</label>
+                                    <input type="time" id="thursday-start-time" name="thursday-start-time">
+                                    <label for="thursday-end-time">End Time:</label>
+                                    <input type="time" id="thursday-end-time" name="thursday-end-time">
+                                </div>
+                            </div>
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="friday" name="friday">
+                                <label for="friday">Fri</label>
+                                <div class="time-input">
+                                    <label for="friday-start-time">Start Time:</label>
+                                    <input type="time" id="friday-start-time" name="friday-start-time">
+                                    <label for="friday-end-time">End Time:</label>
+                                    <input type="time" id="friday-end-time" name="friday-end-time">
+                                </div>
+                            </div>
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="saturday" name="saturday">
+                                <label for="saturday">Sat</label>
+                                <div class="time-input">
+                                    <label for="saturday-start-time">Start Time:</label>
+                                    <input type="time" id="saturday-start-time" name="saturday-start-time">
+                                    <label for="saturday-end-time">End Time:</label>
+                                    <input type="time" id="saturday-end-time" name="saturday-end-time">
+                                </div>
+                            </div>
+                            <div class="day-checkbox">
+                                <input type="checkbox" id="sunday" name="sunday">
+                                <label for="sunday">Sun</label>
+                                <div class="time-input">
+                                    <label for="sunday-start-time">Start Time:</label>
+                                    <input type="time" id="sunday-start-time" name="sunday-start-time">
+                                    <label for="sunday-end-time">End Time:</label>
+                                    <input type="time" id="sunday-end-time" name="sunday-end-time">
+                                </div>
                             </div>
                         </div>
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="thursday" name="thursday">
-                            <label for="thursday">Thu</label>
-                            <div class="time-input">
-                                <label for="thursday-start-time">Start Time:</label>
-                                <input type="time" id="thursday-start-time" name="thursday-start-time">
-                                <label for="thursday-end-time">End Time:</label>
-                                <input type="time" id="thursday-end-time" name="thursday-end-time">
-                            </div>
-                        </div>
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="friday" name="friday">
-                            <label for="friday">Fri</label>
-                            <div class="time-input">
-                                <label for="friday-start-time">Start Time:</label>
-                                <input type="time" id="friday-start-time" name="friday-start-time">
-                                <label for="friday-end-time">End Time:</label>
-                                <input type="time" id="friday-end-time" name="friday-end-time">
-                            </div>
-                        </div>
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="saturday" name="saturday">
-                            <label for="saturday">Sat</label>
-                            <div class="time-input">
-                                <label for="saturday-start-time">Start Time:</label>
-                                <input type="time" id="saturday-start-time" name="saturday-start-time">
-                                <label for="saturday-end-time">End Time:</label>
-                                <input type="time" id="saturday-end-time" name="saturday-end-time">
-                            </div>
-                        </div>
-                        <div class="day-checkbox">
-                            <input type="checkbox" id="sunday" name="sunday">
-                            <label for="sunday">Sun</label>
-                            <div class="time-input">
-                                <label for="sunday-start-time">Start Time:</label>
-                                <input type="time" id="sunday-start-time" name="sunday-start-time">
-                                <label for="sunday-end-time">End Time:</label>
-                                <input type="time" id="sunday-end-time" name="sunday-end-time">
-                                <button class="save-button-business-hours">Save</button> 
-                                <button class="business-hours-cancel-button">Cancel</button>
-                            </div>
-                        </div>
+                        
                     </div>
                     
-                </div>
-                
-                <div class="form-group contact-number">
-                    <label for="contact-number">CONTACT NUMBER:</label>
-                    <div class="contact-input">
-                        <div class="contact-number-fields">
-                            <input type="text" placeholder="Contact Number" class="contact-number-input">
-                            <button class="save-button">Save</button>
-                            <button class="cancel-button">Cancel</button>
-                        </div>
-                        <div class="select-network">
-                            <select>
-                                <option value="">Select Network</option>
-                                <option value="globe">Globe</option>
-                                <option value="smart">Smart</option>
-                                <option value="dito">DITO</option>
-                                <option value="tnt">TNT</option>
-                                <option value="tm">TM</option>
-                            </select>
+                    <div class="form-group contact-number">
+                        <label for="contact-number">CONTACT NUMBER:</label>
+                        <div class="contact-input">
+                            <div class="contact-number-fields">
+                                <input type="text" id="contactNumber" placeholder="Contact Number" class="contact-number-input">
+                            </div>
+                            <div class="select-network">
+                                <select id="networkCategory">
+                                    <option value="">Select Network</option>
+                                    <option value="globe">Globe</option>
+                                    <option value="smart">Smart</option>
+                                    <option value="dito">DITO</option>
+                                    <option value="tnt">TNT</option>
+                                    <option value="tm">TM</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="contact-item">
-                    <label for="email"><strong>EMAIL ADDRESS:</strong></label>
-                    <div class="input-with-button">
-                        <input type="email" id="email" name="email" placeholder="Enter email address here">
-                        <button class="save-button" onclick="saveField('email')">Save</button>
-                        <button class="email-cancel-button">Cancel</button>
+                    <div class="contact-item">
+                        <label for="email"><strong>EMAIL ADDRESS:</strong></label>
+                        <div class="input-with-button">
+                            <input type="email" id="email" name="email" placeholder="Enter email address here">
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="submit-button">Save</button>
+                </form>
             </div>
         </div>
     
         <div class="photo-frame" id="photo-frame">
-            <input type="file" id="photo-upload" accept="image/*" onchange="previewPhoto(event)">
+            <input type="file" id="photo-upload" accept="image/*">
+            <div class="photo-preview" id="contactPreviewContainer"></div>
             <label for="photo-upload" class="upload-button">Upload Photo</label>
             <img id="uploaded-photo" src="#" alt="Upload Photo">
         </div>

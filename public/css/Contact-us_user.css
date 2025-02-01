@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     overflow-y: auto; 
     overflow-x: hidden;
+    
 }
 
 .donate-button {
@@ -501,123 +502,74 @@ footer p {
     height: 30px;
 }
 
-/* ------------------------- BODY --------------------------------*/
+
+/*---------------------------------------------- BODY --------------------------------------------*/
 
 .background-container {
     position: relative;
     background-size: cover;
     background-attachment: fixed;
-    text-align: center;
+    text-align: left;
     flex: 1 0 auto;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     width: 100%;
     padding: 0;
-    box-sizing: border-box;
 }
 
-.events-section {
+.contact-container {
     text-align: center;
-    padding: 50px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 50px;
+    background-color: #f5f5f5;
+    height: 100%;
     width: 100%;
-    min-height: 50vh; 
+}
+.contact-container h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+.contact-intro {
+    margin-bottom: 30px;
+    font-size: 1.2em;
+    color: #777;
+}
+.contact-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+.contact-option {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+}
+.contact-option img {
+    width: 50px;
+    height: 50px;
+}
+.contact-option h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+.contact-option p {
+    margin-bottom: 20px;
 }
 
-.upcoming-events {
-    background-color: #b6d1fa; 
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh; 
-}
-
-.previous-events {
-    background-color: #365899; 
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh; 
-    color: rgb(0, 0, 0);
-}
-
-.event-cards {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+.contact-outro {
     margin-top: 30px;
+    font-size: 1.2em;
+    color: #777;
 }
 
-.event-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: left;
-    width: 22%; 
-    position: relative;
-    transition: transform 0.3s ease;
+.contact-container h2 {
+    font-size: 2.5em;
+    color: #22529b;
+    margin-bottom: 10px;
 }
 
-.event-card:hover {
-    transform: scale(1.05);
-}
-
-.event-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.event-date {
-    background-color: #4a82d8;
-    color: white;
-    padding: 10px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.event-card h3 {
-    margin: 20px 15px 10px 15px;
-    font-size: 18px;
-}
-
-.event-card p {
-    margin: 0 15px 20px 15px;
-    color: #555;
-    font-size: 14px;
-}
-
-.previous-events h3 .event-card p {
-    color: rgb(0, 0, 0); 
-}
-
-.event-card a {
-    display: block;
-    margin: 0 15px 20px 15px;
-    padding: 10px;
-    background-color: #4a82d8;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.event-card a:hover {
-    background-color: #365899;
-}

@@ -11,7 +11,7 @@ document.getElementById('user-input').addEventListener('keypress', function(even
 document.addEventListener('DOMContentLoaded', loadQA);
 
 function loadQA() {
-    fetch('/currentQA')
+    fetch('/allQA')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -44,7 +44,7 @@ function renderQATable() {
         const cellActions = newRow.insertCell(3);
         
         const deleteButton = document.createElement('img');
-        deleteButton.src = 'delete.png';
+        deleteButton.src = 'images/delete.png';
         deleteButton.alt = 'Delete';
         deleteButton.title = 'Delete';
         deleteButton.classList.add('action-icon');
@@ -52,7 +52,7 @@ function renderQATable() {
         cellActions.appendChild(deleteButton);
         
         const editButton = document.createElement('img');
-        editButton.src = 'edit.png';
+        editButton.src = 'images/edit.png';
         editButton.alt = 'Edit';
         editButton.title = 'Edit';
         editButton.classList.add('action-icon');

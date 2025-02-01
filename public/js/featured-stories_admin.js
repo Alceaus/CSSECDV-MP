@@ -4,97 +4,188 @@ let selectedFile = null;
 let albumCounter = 0;
 const albumsPerRow = 4;
 let albumsInFirstRow = 0;
-let album = [];
+let stories = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+    displayCurrentDateTime();
     setupImageUploadPreview();
+    loadStories();
 });
+
+function displayCurrentDateTime() {
+    const datetimeElement = document.getElementById('datetime');
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    datetimeElement.textContent = now.toLocaleDateString('en-US', options);
+}
 
 function setupImageUploadPreview() {
     const albumImagesInput = document.getElementById('albumImages');
     albumImagesInput.addEventListener('change', handleFileSelect);
 }
 
-function openCreateAlbumModal() {
+function openCreateStoryModal() {
     document.getElementById('createAlbumModal').style.display = 'block';
 }
 
-function closeCreateAlbumModal() {
+function closeCreateStoryModal() {
     document.getElementById('createAlbumModal').style.display = 'none';
 }
 
-function createAlbum() {
-    const albumTitle = document.getElementById('albumTitle').value;
-    const albumCaption = document.getElementById('albumCaption').value;
-    const albumCategory = document.getElementById('albumCategory').value;
-    const albumAuthor = document.getElementById('albumAuthor').value;
-    const albumRole = document.getElementById('albumRole').value;
-    const albumHighlights = document.getElementById('albumHighlights').value;
+function openEditStoryModal() {
+    document.getElementById('editAlbumModal').style.display = 'block';
+}
 
-    const album = {
-        title: albumTitle,
-        caption: albumCaption,
-        author: albumAuthor,
-        role: albumRole,
-        highlights: albumHighlights,
-        category: albumCategory,
-        images: [],
+function closeEditStoryModal() {
+    document.getElementById('editAlbumModal').style.display = 'none';
+}
+
+function createStory() {
+    const storyTitle = document.getElementById('albumTitle').value;
+    const storyCaption = document.getElementById('albumCaption').value;
+    const storyAuthor = document.getElementById('albumAuthor').value;
+    const storyRole = document.getElementById('albumRole').value;
+    const storyHighlights = document.getElementById('albumHighlights').value;
+    const storyCategory = document.getElementById('albumCategory').value;
+
+    const story = {
+        title: storyTitle,
+        description: storyCaption,
+        author: storyAuthor,
+        role: storyRole,
+        highlights: storyHighlights,
+        category: storyCategory,
+        images: []
     };
 
-    if (selectedFile) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            album.images.push(event.target.result);
+    const formData = new FormData();
+    formData.append('image', selectedFile);
 
-            displayAlbum(album);
-            closeCreateAlbumModal();
-            document.getElementById('createAlbumForm').reset();
-            selectedFile = null; 
-            document.getElementById('albumPreviewContainer').innerHTML = ''; 
-        };
-        reader.readAsDataURL(selectedFile);
-    }
+    fetch('/uploadImage', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+        return response.json();
+    })
+    .then(data => {
+        story.images.push(data.imagePath);
+        return fetch('/addStory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(story)
+        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save story');
+        }
+        return response.json();
+    })
+    .then(data => {
+        closeCreateStoryModal();
+        document.getElementById('createAlbumForm').reset();
+        document.getElementById('albumPreviewContainer').innerHTML = '';
+        selectedFile = null; 
+    })
+    .catch(error => {
+        console.error('Error saving story:', error);
+    });
 }
 
-function displayAlbum(album) {
+function loadStories() {
+    fetch('/allStories')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch stories');
+            }
+            return response.json();
+        })
+        .then(data => {
+            stories = data.stories;
+            stories.forEach(story => {
+                displayStory(story);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading stories:', error);
+        });
+}
+
+function displayStory(story) {
     const photoGallery = document.getElementById('photoGallery');
+    const storyElement = document.createElement('div');
+    storyElement.classList.add('album');
+    storyElement.id = `story-${story.StoryID}`;
 
-    const albumElement = document.createElement('div');
-    albumElement.classList.add('album');
-    const albumId = `album-${albumCounter++}`; 
-    albumElement.id = albumId;
+    const titleElement = document.createElement('h3');
+    titleElement.textContent = story.StoryTitle;
+    storyElement.appendChild(titleElement);
 
-    albumElement.innerHTML = `
-        <h3>${album.title}</h3>
-        <p><strong>Description:</strong> ${album.caption}</p>
-        <p><strong>Author:</strong> ${album.author}</p>
-        <p><strong>Author's Role:</strong> ${album.role}</p>
-        <p><strong>Story Highlights:</strong> ${album.highlights}</p>
-        <p><strong>Category:</strong> ${album.category}</p>
-        <div class="photo-container">
-            ${album.images.map((src) => `<img src="${src}" onclick="viewFullSize('${src}')">`).join('')}
-        </div>
-        <div class="album-actions">
-            <button onclick="deleteAlbum('${albumId}')">
-                <img src="images/delete.png" alt="Delete" style="width: 15px; height= 15px;" title="Delete">
-            </button>
-            <button onclick="editAlbum('${albumId}')">
-                <img src="images/edit.png" alt="Edit" style="width: 15px; height: 15px;" title="Edit">
-            </button>
-        </div>
-    `;
+    const descriptionElement = document.createElement('p');
+    descriptionElement.textContent = story.Description;
+    storyElement.appendChild(descriptionElement);
 
-    const albumsInCurrentRow = photoGallery.querySelectorAll('.album').length % albumsPerRow;
+    const authorElement = document.createElement('p');
+    authorElement.textContent = `Author: ${story.Author}`;
+    storyElement.appendChild(authorElement);
 
-    if (albumsInCurrentRow === 0 && photoGallery.querySelectorAll('.album').length !== 0) {
-        const br = document.createElement('br');
-        br.classList.add('album-row-break');
-        photoGallery.appendChild(br); 
-    }
+    const roleElement = document.createElement('p');
+    roleElement.textContent = `Author's Role: ${story.AuthorRole}`;
+    storyElement.appendChild(roleElement);
 
-    photoGallery.appendChild(albumElement);
+    const highlightsElement = document.createElement('p');
+    highlightsElement.textContent = `Story Highlights: ${story.StoryHighlights}`;
+    storyElement.appendChild(highlightsElement);
+
+    const categoryElement = document.createElement('p');
+    categoryElement.textContent = `Category: ${story.Category}`;
+    storyElement.appendChild(categoryElement);
+
+    story.images.forEach(imagePath => {
+        const imageElement = document.createElement('img');
+        imageElement.src = imagePath;
+        imageElement.alt = 'Story Image';
+        imageElement.style.width = '100px';
+        imageElement.style.height = '100px';
+        imageElement.classList.add('album-image');
+        imageElement.onclick = () => viewFullSize(`${imagePath}`);
+        storyElement.appendChild(imageElement);
+    });
+
+    const storyActions = document.createElement('div');
+    storyActions.classList.add('album-actions');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.addEventListener('click', () => deleteStory(story.StoryID));
+    const deleteImage = document.createElement('img');
+    deleteImage.src = 'images/delete.png';
+    deleteImage.alt = 'Delete';
+    deleteImage.style.width = '20px';
+    deleteImage.style.height = '20px';
+    deleteImage.title = 'Delete';
+    deleteButton.appendChild(deleteImage);
+    storyActions.appendChild(deleteButton);
+
+    const editButton = document.createElement('button');
+    editButton.addEventListener('click', () => editStory(story.StoryID));
+    const editImage = document.createElement('img');
+    editImage.src = 'images/edit.png';
+    editImage.alt = 'Edit';
+    editImage.style.width = '20px';
+    editImage.style.height = '20px';
+    editImage.title = 'Edit';
+    editButton.appendChild(editImage);
+    storyActions.appendChild(editButton);
+
+    storyElement.appendChild(storyActions);
+    photoGallery.appendChild(storyElement);
 }
-
 
 function adjustAlbumLayout() {
     const photoGallery = document.getElementById('photoGallery');
@@ -110,149 +201,81 @@ function adjustAlbumLayout() {
     }
 }
 
-function deleteAlbum(albumId) {
-    console.log('Deleting album:', albumId);
-
-    const albumElement = document.getElementById(albumId);
-    if (albumElement) {
-        albumElement.remove();
-    }
-
-    fetch(`/api/albums/${albumId}`, {
+function deleteStory(storyId) {
+    fetch(`/deleteStory/${storyId}`, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-
-        },
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Failed to delete album');
+            throw new Error('Failed to delete story');
         }
-
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            const storyElement = document.getElementById(`story-${storyId}`);
+            storyElement.remove();
+        } else {
+            console.error('Error deleting story:', data.message);
+        }
     })
     .catch(error => {
-        console.error('Error deleting album:', error);
-
+        console.error('Error deleting story:', error);
     });
 }
 
-const originalAlbumDetails = {};
+const originalStoryDetails = {};
 
-function editAlbum(albumId) {
-    const albumElement = document.getElementById(albumId);
-    if (!albumElement) return;
+function editStory(storyId) {
+    const story = stories.find(story => story.StoryID === storyId);
 
-    const titleElement = albumElement.querySelector('h3');
-    const captionElement = albumElement.querySelector('p:nth-of-type(1)');
-    const authorElement = albumElement.querySelector('p:nth-of-type(2)'); 
-    const roleElement = albumElement.querySelector('p:nth-of-type(3)'); 
-    const highlightsElement = albumElement.querySelector('p:nth-of-type(4)'); 
-    const categoryElement = albumElement.querySelector('p:nth-of-type(5)');
+    if (!story) {
+        console.error(`Story with ID ${storyId} not found`);
+        return;
+    }
 
-    const title = titleElement.textContent.replace('Story Title:', '').trim();
-    const caption = captionElement.textContent.replace('Description:', '').trim();
-    const author = authorElement.textContent.replace('Author:', '').trim(); 
-    const role = roleElement.textContent.replace('Author\'s Role:', '').trim(); 
-    const highlights = highlightsElement.textContent.replace('Story Highlights:', '').trim(); 
-    const category = categoryElement.textContent.replace('Category:', '').trim();
+    openEditStoryModal();
 
-    originalAlbumDetails[albumId] = {
-        title: titleElement.innerHTML,
-        caption: captionElement.innerHTML,
-        author: authorElement.innerHTML, 
-        role: roleElement.innerHTML, 
-        highlights: highlightsElement.innerHTML, 
-        category: categoryElement.innerHTML
+    document.getElementById('editAlbumTitle').value = story.StoryTitle;
+    document.getElementById('editAlbumCaption').value = story.Description;
+    document.getElementById('editAlbumAuthor').value = story.Author;
+    document.getElementById('editAlbumRole').value = story.AuthorRole;
+    document.getElementById('editAlbumHighlights').value = story.StoryHighlights;
+    document.getElementById('editAlbumCategory').value = story.Category;
+
+    const saveButton = document.querySelector('#editAlbumModal .submit-button');
+    saveButton.addEventListener('click', () => saveStory(storyId));
+}
+
+function saveStory(storyId) {
+    const editedStory = {
+        title: document.getElementById('editAlbumTitle').value,
+        description: document.getElementById('editAlbumCaption').value,
+        author: document.getElementById('editAlbumAuthor').value,
+        authorRole: document.getElementById('editAlbumRole').value,
+        highlights: document.getElementById('editAlbumHighlights').value,
+        category: document.getElementById('editAlbumCategory').value
     };
 
-    titleElement.innerHTML = `<label for="editTitle-${albumId}"><strong>Story Title:</strong></label>
-                                <input type="text" id="editTitle-${albumId}" value="${title}" required>`;
-    captionElement.innerHTML = `<label for="editCaption-${albumId}"><strong>Description:</strong></label>
-                                <textarea id="editCaption-${albumId}" rows="4" required>${caption}</textarea>`;
-    authorElement.innerHTML = `<label for="editAuthor-${albumId}"><strong>Author:</strong></label>
-                                <input type="text" id="editAuthor-${albumId}" value="${author}" required>`; 
-    roleElement.innerHTML = `<label for="editRole-${albumId}"><strong>Author's Role:</strong></label>
-                                <input type="text" id="editRole-${albumId}" value="${role}" required>`; 
-    highlightsElement.innerHTML = `<label for="editHighlights-${albumId}"><strong>Story Highlights:</strong></label>
-                                    <textarea id="editHighlights-${albumId}" rows="4" required>${highlights}</textarea>`; 
-    categoryElement.innerHTML = `<label for="editCategory-${albumId}"><strong>Category:</strong></label>
-                                    <select id="editCategory-${albumId}" required>
-                                        <option value="Educational">Educational</option>
-                                        <option value="Community Outreach">Community Outreach</option>
-                                        <option value="Advocacy">Advocacy</option>
-                                        <option value="Volunteer Engagement">Volunteer Engagement</option>
-                                    </select>`;
-
-    const categorySelect = document.getElementById(`editCategory-${albumId}`);
-    categorySelect.value = category;
-
-    const albumActions = albumElement.querySelector('.album-actions');
-    albumActions.innerHTML = `
-        <button class="action-button bold-button" onclick="saveAlbum('${albumId}')">Update</button>
-        <button class="action-button bold-button" onclick="cancelEdit('${albumId}')">Cancel</button>`;
-}
-
-function cancelEdit(albumId) {
-    const albumElement = document.getElementById(albumId);
-    if (!albumElement) return;
-
-    const originalDetails = originalAlbumDetails[albumId];
-    if (!originalDetails) return;
-
-    const titleElement = albumElement.querySelector('h3');
-    const captionElement = albumElement.querySelector('p:nth-of-type(1)');
-    const authorElement = albumElement.querySelector('p:nth-of-type(2)'); 
-    const roleElement = albumElement.querySelector('p:nth-of-type(3)'); 
-    const highlightsElement = albumElement.querySelector('p:nth-of-type(4)'); 
-    const categoryElement = albumElement.querySelector('p:nth-of-type(5)');
-
-    titleElement.innerHTML = originalDetails.title;
-    captionElement.innerHTML = originalDetails.caption;
-    authorElement.innerHTML = originalDetails.author;
-    roleElement.innerHTML = originalDetails.role; 
-    highlightsElement.innerHTML = originalDetails.highlights; 
-    categoryElement.innerHTML = originalDetails.category;
-
-    const albumActions = albumElement.querySelector('.album-actions');
-    albumActions.innerHTML = `
-        <button onclick="deleteAlbum('${albumId}')">
-            <img src="images/delete.png" alt="Delete" style="width: 15px; height: 15px;" title="Delete">
-        </button>
-        <button onclick="editAlbum('${albumId}')">
-            <img src="images/edit.png" alt="Edit" style="width: 15px; height: 15px;" title="Edit">
-        </button>`;
-
-    delete originalAlbumDetails[albumId];
-}
-
-function saveAlbum(albumId) {
-    // Retrieve edited values
-    const editedTitle = document.getElementById(`editTitle-${albumId}`).value;
-    const editedCaption = document.getElementById(`editCaption-${albumId}`).value;
-    const editedAuthor = document.getElementById(`editAuthor-${albumId}`).value; 
-    const editedRole = document.getElementById(`editRole-${albumId}`).value; 
-    const editedHighlights = document.getElementById(`editHighlights-${albumId}`).value; 
-    const editedCategory = document.getElementById(`editCategory-${albumId}`).value;
-
-    const albumElement = document.getElementById(albumId);
-    albumElement.querySelector('h3').innerHTML = `<strong>Album Title:</strong> ${editedTitle}`;
-    albumElement.querySelector('p:nth-of-type(1)').innerHTML = `<strong>Description:</strong> ${editedCaption}`;
-    albumElement.querySelector('p:nth-of-type(2)').innerHTML = `<strong>Author:</strong> ${editedAuthor}`; 
-    albumElement.querySelector('p:nth-of-type(3)').innerHTML = `<strong>Author's Role:</strong> ${editedRole}`; 
-    albumElement.querySelector('p:nth-of-type(4)').innerHTML = `<strong>Story Highlights:</strong> ${editedHighlights}`; 
-    albumElement.querySelector('p:nth-of-type(5)').innerHTML = `<strong>Category:</strong> ${editedCategory}`;
-
-    const albumActions = albumElement.querySelector('.album-actions');
-    albumActions.innerHTML = `
-        <button onclick="deleteAlbum('${albumId}')">
-            <img src="images/delete.png" alt="Delete" style="width: 15px; height: 15px; margin-top:15px" title="Delete">
-        </button>
-        <button onclick="editAlbum('${albumId}')">
-            <img src="images/edit.png" alt="Edit" style="width: 15px; height: 15px; margin-top:15px" title="Edit">
-        </button>`;
-
-    delete originalAlbumDetails[albumId];
+    fetch(`/editStory/${storyId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedStory),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save edited story');
+        }
+        return response.json();
+    })
+    .then(data => {
+        closeEditStoryModal();
+    })
+    .catch(error => {
+        console.error('Error saving edited story:', error);
+    });
 }
 
 function viewFullSize(imageSrc) {
