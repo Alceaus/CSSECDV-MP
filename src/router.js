@@ -9,7 +9,7 @@ const query = util.promisify(db.query).bind(db);
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
-    message: 'Too many login attempts. Please try again later.'
+    message: { success: false, message: 'Too many login attempts. Please try again later.' }
 });
 
 router.use('/login', loginLimiter);
@@ -29,6 +29,14 @@ router.get('/logout', async (req, res) => {
             res.json({ success: true, message: 'Logged out successfully' });
         }
     });
+});
+
+router.get('/checkLogin', (req, res) => {
+    if (req.session.isLoggedIn) {
+        res.json({ isLoggedIn: true });
+    } else {
+        res.json({ isLoggedIn: false });
+    }
 });
 
 router.get('/getVisitorCount', async (req, res) => {
