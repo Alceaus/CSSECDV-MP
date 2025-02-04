@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById("loginForm");
     const registerForm = document.getElementById("registerForm");
     const slider = document.querySelector(".slider");
+    const loginErrorMessage = document.getElementById('login-error');
+    const photo = document.getElementById('photo');
+    const photoErrorMessage = document.getElementById('photo-error');
 
     // Show login form and hide registration form by default
     loginBtn.classList.add("active-btn");
@@ -50,20 +53,31 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(formData)
         })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
+        .then(async response => {
+            if (response.status === 429) {
+                const rateLimitData = await response.json();
+                throw new Error(rateLimitData.message);
+            }
             return response.json();
         })
         .then(data => {
-            if (data.role === 'Admin') {
-                window.location.href = "home_admin.html";
+            if (data.success) {
+                if (data.role === 'Admin') {
+                    window.location.href = "home_admin.html";
+                } else {
+                    window.location.href = "User.html";
+                }
+                loginForm.reset();
             } else {
-                window.location.href = "User.html";
+                loginErrorMessage.textContent = 'Username or password is incorrect.';
+                loginErrorMessage.style.color = 'red';
             }
-            loginForm.reset();
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+            console.error('Error:', error);
+            
+            loginErrorMessage.textContent = error.message;
+            loginErrorMessage.style.color = 'red';
         });
     });
 
@@ -103,9 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const photo = document.getElementById('photo');
-    const errorMessage = document.getElementById('photo-error');
-
     photo.addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -113,11 +124,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
             if (!validTypes.includes(fileType)) {
-                errorMessage.textContent = 'Please upload a valid image (JPEG, PNG, or GIF only).';
-                errorMessage.style.color = 'red';
+                photoErrorMessage.textContent = 'Please upload a valid image (JPEG, PNG, or GIF only).';
+                photoErrorMessage.style.color = 'red';
                 photo.value = '';
             } else {
-                errorMessage.textContent = '';
+                photoErrorMessage.textContent = '';
             }
         }
     });
