@@ -17,13 +17,18 @@
                     <span class="slider"></span>
                 </div>
                 <div class="forms-container">
+
+                    <!-- LOGIN FORM -->
                     <form id="loginForm" class="active-form">
                         <h2>LOGIN</h2>
                         <p class="user-info"></p>
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="example@email.com" required>
+                        <span id="email-error-login" class="error-message"></span>
+
                         <label for="password">Password</label>
                         <input type="password" id="password" placeholder="Enter Password" required>
+
                         <div class="remember-forgot-container">
                             <input type="checkbox" id="remember">
                             <label for="remember" class="remember-label">Remember me</label>
@@ -36,36 +41,50 @@
                         <a href="TermsAndConditions.html" class="terms-link">Terms and Conditions</a>
                     </form>
                     
-
+                    <!-- REGISTRATION FORM -->
                     <form id="registerForm" style="display: none;">
                         <h2>REGISTER</h2>
                         <p class="user-info"></p>
                         <div class="input-group">
                             <label for="firstName">First Name</label>
                             <input type="text" id="firstName" placeholder="First Name" required>
+
                             <label for="mi">M.I</label>
                             <input type="text" id="mi" placeholder="M.I" required>
+
                             <label for="lastName">Last Name</label>
                             <input type="text" id="lastName" placeholder="Last Name" required>
+
                             <label for="suffix">Suffix</label>
                             <input type="text" id="suffix" placeholder="Suffix">
                         </div>
+
                         <div class="input-group">
                             <label for="emailRegister">Email</label>
                             <input type="email" id="emailRegister" placeholder="example@email.com" required>
+                            <span id="email-error" class="error-message"></span>
+
                             <label for="phone">Phone Number</label>
                             <input type="text" id="phone" placeholder="Phone Number" required>
+                            <span id="phone-error" class="error-message"></span>
                         </div>
+
                         <div class="input-group">
                             <label for="address">Address (Optional)</label>
                             <input type="text" id="address" placeholder="Address (Optional)">
                         </div>
+
                         <div class="input-group">
                             <label for="createPassword">Create Password</label>
                             <input type="password" id="createPassword" placeholder="Create Password" required>
-                            <label for="reenterPassword">Re-enter Password</label>
-                            <input type="password" id="reenterPassword" placeholder="Re-enter Password" required>
+                            <span id="password-error" class="error-message"></span>
+
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" placeholder="Re-enter Password" required>
+                            <span id="confirm-password-error" class="error-message"></span>
+
                         </div>
+
                         <div class="input-group">
                             <label for="photo">Profile Pic</label>
                             <input type="file" id="photo" placeholder="photo" accept="image/jpeg, image/png, image/gif" required>
