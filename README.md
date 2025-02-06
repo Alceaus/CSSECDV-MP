@@ -1,10 +1,10 @@
 # CSSECDV-MP
 ## Setup before running the website locally:
 Make sure to download MySQL Workbench Version 8.0.41 and MySQL Server Version 8.0.41
-When setting up your MySQL Server locally, match it the details with your dotenv file. After finishing setting up, create a schema/database and name it accordingly, matching your dotenv file. Also don't forget to double click the schema to make sure that it is the schema/database being used.
+When setting up your MySQL Server locally, match the details with your dotenv file. After finishing setting up, create a schema/database and name it accordingly, matching your dotenv file. Finally, don't forget to double-click the schema to make sure that it is the schema/database being used.
 
 
-## First, install required packages using:
+## First, install the required packages using:
 ```bash
 npm install
    or
