@@ -160,10 +160,35 @@ router.get('/getContact', async (req, res) => {
     }
 });
 
+router.post('/admin/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role = "Admin"';
+        const results = await query(loginQuery, [email]);
+        
+        if (results.length === 0) {
+            return res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+
+        const user = results[0];
+        const match = await bcrypt.compare(password, user.Password);
+        if (match) {
+            req.session.userId = user.UserID;
+            req.session.isLoggedIn = true; 
+            console.log(`Admin "${user.Email}" has logged in`); 
+            res.json({ success: true, role: user.Role });
+        } else {
+            res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'An error occurred during login' });
+    }
+});
+
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const loginQuery = 'SELECT * FROM user WHERE Email = ?';
+        const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role != "Admin"';
         const results = await query(loginQuery, [email]);
         
         if (results.length === 0) {
