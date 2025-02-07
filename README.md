@@ -1,8 +1,8 @@
 # CSSECDV-MP
-# Marasigan, Marc Daniel
-# Santiago, Nikolai Andre A.
-# Santos, Alejandro Gabriel T.
-# Zamora, Patricia Gabrielle A.
+Marasigan, Marc Daniel
+Santiago, Nikolai Andre A.
+Santos, Alejandro Gabriel T.
+Zamora, Patricia Gabrielle A.
 
 ## Setup before running the website locally:
 Make sure to download MySQL Workbench Version 8.0.41 and MySQL Server Version 8.0.41
