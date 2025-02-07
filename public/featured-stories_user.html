@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Gala</title>
+    <title>Project GALA | Featured Stories</title>
+    <link rel="stylesheet" href="css/LOGIN-OUT.css">
     <link rel="stylesheet" href="css/featured-stories_user.css">
+    <link rel="stylesheet" href="css/donate-popup.css">
+    <link rel="stylesheet" href="css/iframe.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
     <header>
-        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
-        <div id="datetime"></div>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
     </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
 
     <nav>
         <ul>
@@ -22,15 +46,7 @@
                     <a href="Founders.html">FOUNDERS</a>
                 </div>
             </li>
-            <li class="dropdown">
-                <a href="#" data-arrow>PROGRAMS</a>
-                <div class="dropdown-content programs-dropdown">
-                    <a href="#">EDUCATIONAL</a>
-                    <a href="#">COMMUNITY OUTREACH</a>
-                    <a href="#">ADVOCACY</a>
-                    <a href="#">VOLUNTEER ENGAGEMENT</a>
-                </div>
-            </li>
+            
             <li class="dropdown">
                 <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
                 <div class="dropdown-content reports-dropdown"> 
@@ -41,7 +57,7 @@
             <li class="dropdown">
                 <a href="#" data-arrow> CONTACT</a>
                 <div class="dropdown-content contact-dropdown"> 
-                    <a href="#">CONTACT US</a>
+                    <a href="Contact-us_user.html">CONTACT US</a>
                     <a href="get-in-touch.html">GET IN TOUCH</a>
                     <a href="partner-with-us.html">PARTNER WITH US</a>
                     <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
@@ -50,203 +66,43 @@
             <li class="dropdown">
                 <a href="Feedback.html" data-arrow> FEEDBACK</a>
             </li>  
-            <li class="dropdown logout">
-                <a href="#logout" data-arrow>MY ACCOUNT</a>
-                <div class="dropdown-content logout-dropdown">
-                    <a href="My_Account.html">ACCOUNT SETTINGS</a>
-                    <a href="home-default.html">LOGOUT</a>
-                </div>
+            <li id="account-link" class="dropdown">
+                <!-- Placeholder content to be replaced by JavaScript -->
             </li>
         </ul>
     </nav>
 
-    <div class="main-story-container">
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+
+    <div class="background-container">
+        <div class="outer-container">
+            <div class="content-container">
+                <h1>Featured Stories</h1>
             </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
-            </div>
-        </div>
-        <div class="story-container">
-            <div class="story">
-                <div class="story-header">
-                    <div class="author-image-container">
-                        <img src="author.jpg" alt="author's image" class="author-image">
-                    </div>
-                    <div class="story-details">
-                        <h2>Story Title</h2>
-                        <p class="summary">Summary of the story</p>
-                    </div>
-                </div>
-                <div class="story-footer">
-                    <div class="author-info">
-                        <p class="author-name">Author's name</p>
-                        <p class="author-role">Author's role</p>
-                    </div>
-                    <a href="#" class="read-story">Read author's story</a>
-                </div>
+            <div class="main-story-container">
+                <!-- Added stories will be stored here -->
             </div>
         </div>
     </div>
     
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="author-image-container">
+                <img id="modal-author-image" src="" alt="author's image" class="author-image">
+            </div>
+            <div class="author-details">
+                <p id="modal-author-name" class="author-name">Author's name</p>
+                <p id="modal-author-role" class="author-role">Author's role</p>
+            </div>
+            <h2 id="modal-story-title">Story Title</h2>
+            <p id="modal-story-content">Story content goes here...</p>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
-            <img src="../UI/images/logo.png" alt="Footer Logo" class="footer-logo">
+            <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
             <div class="footer-description">
                 <p>Project G.A.L.A. (Give A Love Anywhere) is a private, non-profit, non-partisan, and non-government organization that strongly advocates for an inclusive society through transformative education.</p>
             </div>
@@ -254,12 +110,10 @@
                 <div class="about-us-section">
                     <h3>About Us</h3>
                     <ul>
-                        <li><a href="#">Mission & Vision</a></li>
-                        <li><a href="#">Journey</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Board of Directors</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="../public/Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="../public/Our_Journey.html">Journey</a></li>
+                        <li><a href="../public/Founders.html">Founders</a></li>
+                        <li><a href="../public/TermsAndConditions.html">Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -271,7 +125,7 @@
                 <div class="follow-connect">
                     <h3>Connect With Us</h3>
                     <div class="social-icons">
-                        <a href="https://www.facebook.com/GAlAProject"><img src="../UI/images/facebook.png" alt="Facebook"></a>
+                        <a href="https://www.facebook.com/GAlAProject"><img src="images/facebook.png" alt="Facebook"></a>
                     </div>                
                 </div>
             </div>
@@ -282,5 +136,6 @@
     </footer>
     
     <script src="js/featured-stories_user.js"></script>
+    <script src="js/donate-popup.js"></script>
 </body>
 </html>

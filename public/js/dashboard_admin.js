@@ -1,4 +1,9 @@
-let websiteVisits = 0;
+let visitorCounts = [];
+let isOverview = 1;
+let users = [];
+let partnerApplications = [];
+let volunteerApplications = [];
+let getInTouchMessages = [];
 
 document.addEventListener("DOMContentLoaded", function() {
     const dropdowns = document.querySelectorAll('.dropdown');
@@ -10,9 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     loadContent('overview');
-    loadUserList();
-    loadPendingApplications(); 
-    loadGetInTouchMessages();
+    loadVisitorCount();
 });
 
 function loadContent(content) {
@@ -26,185 +29,398 @@ function loadContent(content) {
     sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1);
     document.querySelector('.dashboard-header h1').innerText = sectionTitle;
 
-    if (content === 'volunteerApplication') {
-        loadVolunteerApplications();
+    if (content != 'overview') {
+        isOverview = 0;
+    }
+    if (content === 'overview') {
+        isOverview = 1;
+        loadUsers();
+        loadVolunteers();
+        loadPartners();
+    } else if (content === 'users') {
+        loadUsers();
+    } else if (content === 'volunteerApplication') {
+        loadVolunteers();
     } else if (content === 'partnerApplication') {
-        loadPartnerApplications();
+        loadPartners();
     } else if (content === 'getInTouch') { 
-        loadGetInTouchMessages();
+        loadGetInTouch();
     }
 }
 
-function loadUserList() {
-    var users = [ // sample
-        { name: "Juan Dela Cruz", idNumber: "12345", email: "juan@example.com", phone: "1234567890", address: "Real St, Manila", role: "Volunteer", online: true },
-        { name: "Pepito Manaloto", idNumber: "54321", email: "pepito@example.com", phone: "0987654321", address: "Sampaguita St, Manila", role: "Donor", online: false }
+function loadVisitorCount() {
+    fetch('/getVisitorCount')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch visitor count');
+            }
+            return response.json();
+        })
+        .then(data => {
+            visitorCounts = data.data;
+            displayVisitorCount();
+        })
+        .catch(error => {
+            console.error('Error loading visitor count:', error);
+        });
+}
 
-    ];
-    var userList = document.getElementById('user-list');
-    var totalUsers = document.getElementById('total-users');
+function loadUsers() {
+    fetch('/allUsers')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch users');
+            }
+            return response.json();
+        })
+        .then(data => {
+            users = data.data;
+            displayUserList();
+        })
+        .catch(error => {
+            console.error('Error loading users:', error);
+        });
+}
+
+function loadVolunteers() {
+    fetch('/allVolunteers')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch volunteers');
+            }
+            return response.json();
+        })
+        .then(data => {
+            volunteerApplications = data.data;
+            displayVolunteerApplications();
+        })
+        .catch(error => {
+            console.error('Error loading volunteers:', error);
+        });
+}
+
+function loadPartners() {
+    fetch('/allPartners')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch partners');
+            }
+            return response.json();
+        })
+        .then(data => {
+            partnerApplications = data.data;
+            displayPartnerApplications();
+        })
+        .catch(error => {
+            console.error('Error loading partners:', error);
+        });
+}
+
+function loadGetInTouch() {
+    fetch('/allGetInTouch')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch get in touch');
+            }
+            return response.json();
+        })
+        .then(data => {
+            getInTouchMessages = data.data;
+            displayGetInTouchMessages();
+        })
+        .catch(error => {
+            console.error('Error loading get in touch:', error);
+        });
+}
+
+function displayVisitorCount() {
+    const websiteVisits = document.getElementById('website-visits');
+    websiteVisits.innerHTML = '';
+
+    visitorCounts.forEach(function(visitorCount) {
+        const visitCount = document.createElement('td');
+        visitCount.textContent = visitorCount.Count;
+        websiteVisits.appendChild(visitCount);
+    });
+}
+
+function displayUserList() {
+    if (isOverview == 0) {
+        var userList = document.getElementById('user-list');
+    } else if (isOverview == 1) {
+        var userList = document.getElementById('users-summary-graph');
+    }
     userList.innerHTML = '';
 
-    var onlineCount = 0;
-
     users.forEach(function(user) {
-        var listItem = document.createElement('tr');
+        const listItem = document.createElement('tr');
         listItem.classList.add('user-item');
-        listItem.innerHTML = `
-            <td>${user.name}</td>
-            <td>${user.idNumber}</td>
-            <td>${user.email}</td>
-            <td>${user.phone}</td>
-            <td>${user.address}</td>
-            <td>${user.role}</td>
-            <td><span class="${user.online ? 'online' : 'offline'}">${user.online ? 'Online' : 'Offline'}</span></td>
-        `;
-        userList.appendChild(listItem);
 
-        if (user.online) {
-            onlineCount++;
+        const nameCell = document.createElement('td');
+        nameCell.textContent = user.FirstName + ' ' + user.LastName;
+        listItem.appendChild(nameCell);
+
+        if (isOverview == 0) {
+            const idNumberCell = document.createElement('td');
+            idNumberCell.textContent = user.UserID;
+            listItem.appendChild(idNumberCell);
+
+            const emailCell = document.createElement('td');
+            emailCell.textContent = user.Email;
+            listItem.appendChild(emailCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = user.Phone;
+            listItem.appendChild(phoneCell);
+
+            const addressCell = document.createElement('td');
+            addressCell.textContent = user.Address;
+            listItem.appendChild(addressCell);
+
+            const roleCell = document.createElement('td');
+            roleCell.textContent = user.Role;
+            listItem.appendChild(roleCell);
+
+            const statusCell = document.createElement('td');
+            const statusSpan = document.createElement('span');
+            statusSpan.classList.add(user.Status ? 'online' : 'offline');
+            statusSpan.textContent = user.Status ? 'Online' : 'Offline';
+            statusCell.appendChild(statusSpan);
+            listItem.appendChild(statusCell);
         }
+        userList.appendChild(listItem);
     });
-
-    totalUsers.textContent = users.length;
 }
 
-function loadVolunteerApplications() {
-    const volunteerTable = document.getElementById('volunteer-applications');
-    volunteerTable.innerHTML = ''; 
+function displayVolunteerApplications() {
+    if (isOverview == 0) {
+        var volunteerTable = document.getElementById('volunteer-applications');
+    } else if (isOverview == 1) {
+        var volunteerTable = document.getElementById('volunteer-applications-summary-graph');
+    }
+    volunteerTable.innerHTML = '';
+
     volunteerApplications.forEach(application => {
-        const row = `
-            <tr>
-                <td>${application.name}</td>
-                <td>${application.email}</td>
-                <td>${application.phone}</td>
-                <td>${application.skills}</td>
-                <td>${application.availability}</td>
-                <td>${application.previousExperience}</td>
-                <td>${application.whyVolunteer}</td>
-                <td>
-                    <button onclick="approveVolunteer('${application.email}')">Approve</button>
-                    <button onclick="rejectVolunteer('${application.email}')">Reject</button>
-                </td>
-            </tr>
-        `;
-        volunteerTable.insertAdjacentHTML('beforeend', row);
+        const row = document.createElement('tr');
+        
+        const fullNameCell = document.createElement('td');
+        fullNameCell.textContent = application.FullName;
+        row.appendChild(fullNameCell);
+
+        if (isOverview == 0) {
+            const emailCell = document.createElement('td');
+            emailCell.textContent = application.Email;
+            row.appendChild(emailCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = application.Phone;
+            row.appendChild(phoneCell);
+
+            const skillsCell = document.createElement('td');
+            skillsCell.textContent = application.Skills;
+            row.appendChild(skillsCell);
+
+            const eventDate = new Date(application.Availability);
+            const options = { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            const formattedDate = eventDate.toLocaleString('en-US', options);
+
+            const availabilityCell = document.createElement('td');
+            availabilityCell.textContent = formattedDate;
+            row.appendChild(availabilityCell);
+
+            const previousExperienceCell = document.createElement('td');
+            previousExperienceCell.textContent = application.PreviousExperience;
+            row.appendChild(previousExperienceCell);
+
+            const whyVolunteerCell = document.createElement('td');
+            whyVolunteerCell.textContent = application.WhyVolunteer;
+            row.appendChild(whyVolunteerCell);
+
+            const actionsCell = document.createElement('td');
+            
+            const approveButton = document.createElement('button');
+            approveButton.textContent = 'Approve';
+            approveButton.onclick = () => approveVolunteer(application.VolunteerID, row, application.Email);
+            actionsCell.appendChild(approveButton);
+
+            const rejectButton = document.createElement('button');
+            rejectButton.textContent = 'Reject';
+            rejectButton.onclick = () => rejectVolunteer(application.VolunteerID, row, application.Email);
+            actionsCell.appendChild(rejectButton);
+
+            row.appendChild(actionsCell);
+        }
+        volunteerTable.appendChild(row);
     });
 }
 
-function loadPartnerApplications() {
-    const partnerTable = document.getElementById('partner-applications');
+function displayPartnerApplications() {
+    if (isOverview == 0) {
+        var partnerTable = document.getElementById('partner-applications');
+    } else if (isOverview == 1) {
+        var partnerTable = document.getElementById('partner-applications-summary-graph');
+    }
     partnerTable.innerHTML = ''; 
 
     partnerApplications.forEach(application => {
-        const row = `
-            <tr>
-                <td>${application.organizationName}</td>
-                <td>${application.contactPerson}</td>
-                <td>${application.email}</td>
-                <td>${application.phone}</td>
-                <td>${application.projectCollaboration}</td>
-                <td>${application.organizationDescription}</td>
-                <td>
-                    <button onclick="approvePartner('${application.email}')">Approve</button>
-                    <button onclick="rejectPartner('${application.email}')">Reject</button>
-                </td>
-            </tr>
-        `;
-        partnerTable.insertAdjacentHTML('beforeend', row);
+        const row = document.createElement('tr');
+        
+        const orgNameCell = document.createElement('td');
+        orgNameCell.textContent = application.OrgName;
+        row.appendChild(orgNameCell);
+
+        if (isOverview == 0) {
+            const contactPersonCell = document.createElement('td');
+            contactPersonCell.textContent = application.ContactPerson;
+            row.appendChild(contactPersonCell);
+
+            const emailCell = document.createElement('td');
+            emailCell.textContent = application.Email;
+            row.appendChild(emailCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = application.Phone;
+            row.appendChild(phoneCell);
+
+            const projectCell = document.createElement('td');
+            projectCell.textContent = application.Project;
+            row.appendChild(projectCell);
+
+            const orgDescriptionCell = document.createElement('td');
+            orgDescriptionCell.textContent = application.OrgDescription;
+            row.appendChild(orgDescriptionCell);
+
+            const actionsCell = document.createElement('td');
+            
+            const approveButton = document.createElement('button');
+            approveButton.textContent = 'Approve';
+            approveButton.onclick = () => approvePartner(application.PartnerID, row, application.Email);
+            actionsCell.appendChild(approveButton);
+
+            const rejectButton = document.createElement('button');
+            rejectButton.textContent = 'Reject';
+            rejectButton.onclick = () => rejectPartner(application.PartnerID, row, application.Email);
+            actionsCell.appendChild(rejectButton);
+
+            row.appendChild(actionsCell);
+        }
+        partnerTable.appendChild(row);
     });
 }
 
-function approveVolunteer(email) {
-    console.log(`Volunteer application for ${email} approved.`);
-}
-
-function rejectVolunteer(email) {
-    console.log(`Volunteer application for ${email} rejected.`);
-}
-
-function approvePartner(email) {
-    console.log(`Partner application for ${email} approved.`);
-}
-
-function rejectPartner(email) {
-    console.log(`Partner application for ${email} rejected.`);
-}
-
-// Sample volunteer applications
-const volunteerApplications = [
-    {
-        name: "Juan Dela Cruz",
-        email: "juan@example.com",
-        phone: "0912345",
-        skills: "Web Development, Marketing",
-        availability: "10/24/2024 11:00AM",
-        previousExperience: "Volunteered at local community center",
-        whyVolunteer: "I want to contribute to society and make a positive impact."
-    },
-    {
-        name: "Alice Guo",
-        email: "alice@example.com",
-        phone: "0912345",
-        skills: "Teaching, Event Planning",
-        availability: "04/13/2024 9:00AM",
-        previousExperience: "Tutored high school students",
-        whyVolunteer: "I love teaching and want to help underprivileged children."
-    }
-];
-
-// Sample partner applications
-const partnerApplications = [
-    {
-        organizationName: "ABC Organization",
-        contactPerson: "Christian Dior",
-        email: "dior@example.com",
-        phone: "09173648",
-        projectCollaboration: "Education, Health",
-        organizationDescription: "ABC Organization is dedicated to providing educational opportunities for children in need."
-    },
-    {
-        organizationName: "XYZ Foundation",
-        contactPerson: "Luke Kah",
-        email: "luke@example.com",
-        phone: "096969",
-        projectCollaboration: "Environmental Sustainability",
-        organizationDescription: "XYZ Foundation focuses on environmental conservation and sustainability projects."
-    }
-];
-
-function loadGetInTouchMessages() {
+function displayGetInTouchMessages() {
     const messagesTable = document.getElementById('get-in-touch-messages');
-    messagesTable.innerHTML = ''; 
-
-    const getInTouchMessages = [
-        {
-            fullName: "James Blue",
-            email: "james@example.com",
-            contactNumber: "123456789",
-            subject: "Inquiry",
-            message: "I would like to know more about your programs."
-        },
-        {
-            fullName: "Hannah Montana",
-            email: "hannah@example.com",
-            contactNumber: "987654321",
-            subject: "Support",
-            message: "How can I support your organization?"
-        }
-
-    ];
+    messagesTable.innerHTML = '';
 
     getInTouchMessages.forEach(message => {
-        const row = `
-            <tr>
-                <td>${message.fullName}</td>
-                <td>${message.email}</td>
-                <td>${message.contactNumber}</td>
-                <td>${message.subject}</td>
-                <td>${message.message}</td>
-            </tr>
-        `;
-        messagesTable.insertAdjacentHTML('beforeend', row);
+        const row = document.createElement('tr');
+        
+        const fullNameCell = document.createElement('td');
+        fullNameCell.textContent = message.FullName;
+        row.appendChild(fullNameCell);
+
+        const emailCell = document.createElement('td');
+        emailCell.textContent = message.Email;
+        row.appendChild(emailCell);
+
+        const phoneCell = document.createElement('td');
+        phoneCell.textContent = message.Phone;
+        row.appendChild(phoneCell);
+
+        const subjectCell = document.createElement('td');
+        subjectCell.textContent = message.Subject;
+        row.appendChild(subjectCell);
+
+        const messageCell = document.createElement('td');
+        messageCell.textContent = message.Message;
+        row.appendChild(messageCell);
+
+        messagesTable.appendChild(row);
+    });
+}
+
+function approveVolunteer(volunteerId, row, email) {
+    fetch(`/approveVolunteer/${volunteerId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to approve volunteer');
+        }
+        return response.json();
+    })
+    .then(data => {
+        row.remove();
+        console.log(`Volunteer application for ${email} approved.`);
+    })
+    .catch(error => {
+        console.error('Error approving volunteer:', error);
+    });
+}
+
+function rejectVolunteer(volunteerId, row, email) {
+    fetch(`/deleteVolunteer/${volunteerId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete volunteer');
+        }
+        return response.json();
+    })
+    .then(data => {
+        row.remove();
+        console.log(`Volunteer application for ${email} rejected.`);
+    })
+    .catch(error => {
+        console.error('Error deleting volunteer:', error);
+    });
+}
+
+function approvePartner(volunteerId, row, email) {
+    fetch(`/approvePartner/${volunteerId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to approve partner');
+        }
+        return response.json();
+    })
+    .then(data => {
+        row.remove();
+        console.log(`Partner application for ${email} approved.`);
+    })
+    .catch(error => {
+        console.error('Error approving partner:', error);
+    });
+}
+
+function rejectPartner(partnerId, row, email) {
+    fetch(`/deletePartner/${partnerId}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ email })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete partner');
+        }
+        return response.json();
+    })
+    .then(data => {
+        row.remove();
+        console.log(`Partner application for ${email} rejected.`);
+    })
+    .catch(error => {
+        console.error('Error deleting partner:', error);
     });
 }

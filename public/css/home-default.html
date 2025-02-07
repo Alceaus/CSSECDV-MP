@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gala</title>
+    <link rel="stylesheet" href="css/home-default.css">
+    <link rel="stylesheet" href="css/iframe.css">
+</head>
+<body>
+    <header>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
+    </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <a href="#" data-arrow>ABOUT US</a>
+                <div class="dropdown-content">
+                    <a href="Mission_Vision_Purpose.html">MISSION, VISION & PURPOSE</a>
+                    <a href="Our_Journey.html">JOURNEY</a>
+                    <a href="Founders.html">FOUNDERS</a>
+                </div>
+            </li>
+            
+            <li class="dropdown">
+                <a href="#" data-arrow>REPORTS AND PUBLICATIONS</a>
+                <div class="dropdown-content reports-dropdown"> 
+                    <a href="featured-stories_user.html">FEATURED STORIES</a>
+                    <a href="multimedia-resources.html">MULTIMEDIA RESOURCES</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-arrow>CONTACT</a>
+                <div class="dropdown-content contact-dropdown"> 
+                    <a href="Contact-us_user.html">CONTACT US</a>
+                    <a href="get-in-touch.html">GET IN TOUCH</a>
+                    <a href="partner-with-us.html">PARTNER WITH US</a>
+                    <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="Feedback.html" data-arrow> FEEDBACK</a>
+            </li>
+            <li class="dropdown login">
+                <a href="user-login-register.html" data-arrow>LOGIN / REGISTER</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="background-container">
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <a href="#">
+                    <img src="images/Give. Share. Be an Advocate.png" style="width:100%">
+                </a>
+            </div>
+            <div class="mySlides fade">
+                <a href="#">
+                    <img src="images/Educational.png" style="width:100%">
+                </a>
+            </div>
+            <div class="mySlides fade">
+                <a href="#">
+                    <img src="images/Community Outreach.png" style="width:100%">
+                </a>
+            </div>
+            <div class="mySlides fade">
+                <a href="#">
+                    <img src="images/Advocacy.png" style="width:100%">
+                </a>
+            </div>
+            <div class="mySlides fade">
+                <a href="#">
+                    <img src="images/Volunteer Engagement.png" style="width:100%">
+                </a>
+            </div> 
+        
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div> 
+    
+        
+        
+        <div class="content-wrapper">
+            <div class="content-container">
+                <h1>Advocating for a Brighter Future</h1>
+                <p>Give A Love Anywhere (GALA) is a private, non-profit, non-partisan, and non-governmental organization dedicated to promoting an inclusive society through transformative education.</p>
+                <p>Founded in 2017, GALA operates under the motto: "Founded by love, strengthened by commitment, passion, and determination, driven to share, give, and advocate." This guiding principle underscores their mission to make education accessible and inclusive for all individuals.</p>
+            </div>
+        
+            <div class="programs">
+                <div class="program-item">
+                    <img src="images/Home Default/Educational Program.png" alt="Educational Program" class="program-image">
+                    <p>Educational Program</p>
+                    <div class="program-description">
+                        <p>GALA offers a range of educational programs aimed at different age groups and communities. These programs are designed to foster inclusivity and provide opportunities for learning and growth.</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <img src="images/Home Default/Community Outreach Program.png" alt="Community Outreach Program" class="program-image">
+                    <p>Community Outreach Program</p>
+                    <div class="program-description">
+                        <p>The organization conducts outreach programs to engage with various communities, identify their educational needs, and provide necessary resources and support.</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <img src="images/Home Default/Advocacy Program.png" alt="Advocacy Program" class="program-image">
+                    <p>Advocacy Program</p>
+                    <div class="program-description">
+                        <p>GALA actively advocates for policies and initiatives that support inclusive education. They collaborate with local and international partners to influence positive change in educational systems.</p>
+                    </div>
+                </div>
+                <div class="program-item">
+                    <img src="images/Home Default/Volunteer Engagement Program.png" alt="Volunteer Engagement Program" class="program-image">
+                    <p>Volunteer Engagement Program</p>
+                    <div class="program-description">
+                        <p>Volunteers play a crucial role in GALA's operations. The organization has a structured process for recruiting, training, and deploying volunteers to various projects and programs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-wrapper testimonial-section">
+            <h2>FEEDBACK</h2>
+            <div class="testimonial-navigation">
+                <button class="testimonial-button prev" onclick="plusTestimonials(-1)">&#10094;</button>
+                <div class="testimonial" style="display: flex;">
+                    <img src="images/founders/vo.jpg" alt="Dr. Wangari Maathai" class="testimonial-image">
+                    <div class="testimonial-text">
+                        <p class="testimonial-quote">We must continue to encourage each other to be agents of change, and be among the small group of people who make things happen, rather than watch them happen.</p>
+                        <p class="testimonial-author">Dr. Wangari Maathai<br>Founder, Green Belt Movement<br>2004 Nobel Peace Prize Laureate</p>
+                    </div>
+                </div>
+                <div class="testimonial" style="display: none;">
+                    <img src="images/founders/vo.jpg" alt="Dr. Wangari Maathai" class="testimonial-image">
+                    <div class="testimonial-text">
+                        <p class="testimonial-quote">Another testimonial quote here.</p>
+                        <p class="testimonial-author">Another Author<br>Another Title</p>
+                    </div>
+                </div>
+                <div class="testimonial" style="display: none;">
+                    <img src="images/founders/vo.jpg" alt="Dr. Wangari Maathai" class="testimonial-image">
+                    <div class="testimonial-text">
+                        <p class="testimonial-quote">Yet another testimonial quote here.</p>
+                        <p class="testimonial-author">Yet Another Author<br>Yet Another Title</p>
+                    </div>
+                </div>
+                <button class="testimonial-button next" onclick="plusTestimonials(1)">&#10095;</button>
+            </div>            
+        </div>
+
+    </div>
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+    <footer>
+        <div class="footer-content">
+            <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
+            <div class="footer-description">
+                <p>Project G.A.L.A. (Give A Love Anywhere) is a private, non-profit, non-partisan, and non-government organization that strongly advocates for an inclusive society through transformative education.</p>
+            </div>
+            <div class="footer-links">
+                <div class="about-us-section">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="../public/Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="../public/Our_Journey.html">Journey</a></li>
+                        <li><a href="../public/Founders.html">Founders</a></li>
+                        <li><a href="../public/TermsAndConditions.html">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="contact-section">
+                    <h3>Contact Us</h3>
+                    <p>For more immediate concerns, you may reach us at:<br><br></p>
+                    <p><strong>Email Address:</strong> project.gala.2017@gmail.com</p>
+                    <p><strong>Contact Number:</strong><br> 0939 752 7749</p>
+                </div>                
+                <div class="follow-connect">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/GAlAProject"><img src="images/facebook.png" alt="Facebook"></a>
+                    </div>                
+                </div>
+            </div>
+        </div>        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Project GALA. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="js/home-default.js"></script>
+</body>
+</html>

@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Gala</title>
+    <title>Project GALA | Founders</title>
+    <link rel="stylesheet" href="css/LOGIN-OUT.css">
     <link rel="stylesheet" href="css/Founders.css">
+    <link rel="stylesheet" href="css/donate-popup.css">
+    <link rel="stylesheet" href="css/iframe.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
 </head>
 <body>
     <header>
-        <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
-        <div id="datetime"></div>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
     </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
 
     <nav>
         <ul>
@@ -22,15 +46,7 @@
                     <a href="Founders.html">FOUNDERS</a>
                 </div>
             </li>
-            <li class="dropdown">
-                <a href="#" data-arrow>PROGRAMS</a>
-                <div class="dropdown-content programs-dropdown">
-                    <a href="#">EDUCATIONAL</a>
-                    <a href="#">COMMUNITY OUTREACH</a>
-                    <a href="#">ADVOCACY</a>
-                    <a href="#">VOLUNTEER ENGAGEMENT</a>
-                </div>
-            </li>
+           
             <li class="dropdown">
                 <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
                 <div class="dropdown-content reports-dropdown"> 
@@ -41,7 +57,7 @@
             <li class="dropdown">
                 <a href="#" data-arrow> CONTACT</a>
                 <div class="dropdown-content contact-dropdown"> 
-                    <a href="#">CONTACT US</a>
+                    <a href="Contact-us_user.html">CONTACT US</a>
                     <a href="get-in-touch.html">GET IN TOUCH</a>
                     <a href="partner-with-us.html">PARTNER WITH US</a>
                     <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
@@ -50,75 +66,141 @@
             <li class="dropdown">
                 <a href="Feedback.html" data-arrow> FEEDBACK</a>
             </li>  
-            <li class="dropdown logout">
-                <a href="#logout" data-arrow>MY ACCOUNT</a>
-                <div class="dropdown-content logout-dropdown">
-                    <a href="My_Account.html">ACCOUNT SETTINGS</a>
-                    <a href="home-default.html">LOGOUT</a>
-                </div>
+            <li id="account-link" class="dropdown">
+                <!-- Placeholder content to be replaced by JavaScript -->
             </li>
         </ul>
     </nav>
-    <div class="founders-container">
-        <h1 class="section-title">FOUNDERS</h1>
-        <div class="line"></div>
-        <div class="founder">
-            <img src="image.png" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Jaemie Ancheta</h2>
-                <p class="founder-description">N/A</p>
+
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+
+        <div class="founders-container">
+            <h1 class="section-title">FOUNDERS</h1>
+            <div class="line"></div>
+            <div class="founders-row">
+                <div class="founder">
+                    <img src="images/founders/Jaemie Ancheta.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Jaemie Ancheta</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Ms. Jaemie B. Ancheta is a dedicated educator and leader with a strong commitment to transformative education. 
+                                She began her teaching career as a Social Science teacher at Mary Immaculate Parish Special School and Las Piñas National High School. A 2018
+                                graduate of Philippine Normal University, Ms. Ancheta is currently pursuing a Master of Arts in Sociology at UP Diliman. In addition to her 
+                                academic endeavors, she is an international teacher at Piboon Sawasdee Municipal School in Phuket, Thailand. Ms. Ancheta also chairs Project GALA 
+                                for the 2023-2024 term, reflecting her dedication to social advocacy and community service.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span> 
+                        </div>
+                    </div>
+                </div>
+                <div class="founder">
+                    <img src="images/founders/David Roy Austria.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">David Roy Austria</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Mr. David Roy L. Austria is an accomplished educator and playwright, known for his significant 
+                                contributions to both the academic and artistic communities. He began his career as a Social Science teacher at Diliman Preparatory School 
+                                and is currently teaching at De La Salle Santiago Zobel School. A 2018 graduate of Philippine Normal University with a Bachelor in Social Science 
+                                Education, Mr. Austria is now pursuing a Master of Arts in Sociology. He is a celebrated playwright, having won numerous competitions in the Philippine 
+                                Association of State Universities and Colleges Culture and Arts Festival. Notably, Mr. Austria served as the Project Gala Chair in 2020, leading critical
+                                pandemic response efforts.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="founders-row">
+                <div class="founder">
+                    <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Lou Marxis Gallevo</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Mr. Lou Marxis Gallevo is an educator, leader, and advocate. He is currently an International Educator teaching 
+                                under the International Baccalaureate Program (IB World Schools) and International General Certifcate of Secondary Education (IGCSE- Cambridge) 
+                                at the Mentari intercultural School Bintaro- Indonesia. Mr. Gallevo has six years teaching experience under K-12 curriculum teaching Araling 
+                                Panlipunan from Grade 6-12 at Elizabeth Seton School where he became the Supreme Student Council Adviser for 3 years. This stemmed from his 
+                                training at the Philippine Normal University-Manila where he graduated as Cum Laude. He is also a member of Una Mano Aiuta L Altra Inc, a 
+                                Non-government Organization providing educational and spiritual support for the children of Tondo, Manila. His advocacy for transformative education 
+                                has reached Indonesia as he is a regular facilitator and speaker for Public School Teachers of Indonesia under the  Yayasan Emmanuel’s Innovative School’s 
+                                Program in partnership with the Indonesia’s Ministry of Education.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder">
+                    <img src="images/founders/Mercy Fidelis G. Guerrero.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Mercy Fidelis Guerrero</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Mercy Fidelis G. Guerrero graduated from the Philippine Normal University. She previously served as a teacher 
+                                at Diliman Preparatory School for two remarkable years and is currently a dedicated public school teacher at Holy Spirit National High School. 
+                                Additionally, she is an active member of Project G.A.L.A.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="founders-row">
+                <div class="founder">
+                    <img src="images/founders/Princess Intong.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Princess Intong</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Ms. Princess Intong is a distinguished educator and community leader. Graduating Cum Laude with a Bachelor
+                                in Social Science Education from Philippine Normal University, she currently teaches Social Science and Humanities at St. Pedro Poveda
+                                 College. Ms. Intong is an active member and officer of both the Girl Scout of the Philippines (GSP) and the Rotaract Club. She was honored
+                                  with the GSP National Young Achievers award in 2020. As the former chair of Project Gala, she spearheaded initiatives in Itogon Benguet
+                                   and formed partnerships to further her advocacy efforts. She is also pursuing a Master of Arts in Anthropology at UP Diliman.</p>
+                                   <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder">
+                    <img src="images/founders/Aubrey Mikaela Joson.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Aubrey Mikaela Joson</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Ms. Aubrey Mikaela Joson completed her Bachelor’s degree in Social Science Education with a Certificate 
+                                in Teaching Junior High School from the Philippine Normal University in 2018, graduating as a top student and Cum Laude. She has since 
+                                dedicated herself to teaching Araling Panlipunan for the past six years. Currently, Ms. Joson teaches Araling Panlipunan at Valenzuela 
+                                National High School, where she also serves as the Supreme Secondary Learner Government (SSLG) Adviser. Recognized for her exceptional 
+                                contributions to education, Ms. Joson was named one of the Outstanding Teachers of SDO Valenzuela for both 2021 and 2022. She is also an 
+                                active volunteer and resource speaker, she frequently addresses topics such as youth leadership, human rights, child protection policy, gender equality, and volunteerism.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="founders-row">
+                <div class="founder">
+                    <img src="images/founders/Mel Lizardo.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Mel Franky S. Lizardo </h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Mel Franky Lizardo is a dedicated educator with a Bachelor’s degree in Social Science Education from the Philippine Normal University. 
+                                From 2018 to 2023, Mel worked as a Licensed Professional Teacher at San Sebastian College Recoletos Manila, and is currently an academic course designer. 
+                                Pursuing further education, Mel is studying for an MA in Anthropology at the University of the Philippines Diliman. Between 2017 and 2019, Mel was actively 
+                                involved in Project Gala, leading impactful initiatives such as Unang GALA in Manila and the Iloveyou300 project in Itogon, Benguet. Passionate about teaching 
+                                and volunteer work, Mel excels in organizing logistics, managing budgets, and creating audiovisual and graphic materials to support educational endeavors.</p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="founder">
+                    <img src="images/founders/Christ-Ellah Villa-real.jpg" alt="Founder Image" class="founder-image">
+                    <div class="founder-info">
+                        <h2 class="founder-name">Christ-Ellah Villa-real</h2>
+                        <div class="founder-description-container">
+                            <p class="founder-description">Ms. Christ-Ellah Villa-Real is an accomplished educator with a Bachelor in Social Science Education from Philippine Normal University. She currently serves as a Social Science and Humanities teacher at Life Academy International School, where she is dedicated to fostering critical thinking and social awareness among her students.
+                                Ms. Villa-Real has also demonstrated significant leadership in community service. As a former chair of Project Gala, she spearheaded numerous initiatives aimed at disaster response, enhancing community involvement, and establishing meaningful partnerships. Her efforts have had a lasting impact on the communities she has served, showcasing her commitment to both education and social responsibility.
+                                </p>
+                                <span class="show-more" onclick="toggleDescription(this)">&#x25BC;</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="founder">
-            <img src="image.png" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">David Roy Austria</h2>
-                <p class="founder-description">N/A</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Lou Marxis Gallevo</h2>
-                <p class="founder-description">Mr. Lou Marxis Gallevo is an educator, leader, and advocate. He is currently an International Educator teaching under the International Baccalaureate Program (IB World Schools) and International General Certifcate of Secondary Education (IGCSE- Cambridge) at the Mentari intercultural School Bintaro- Indonesia. Mr. Gallevo has six years teaching experience under K-12 curriculum teaching Araling Panlipunan from Grade 6-12 at Elizabeth Seton School where he became the Supreme Student Council Adviser for 3 years. This stemmed from his training at the Philippine Normal University-Manila where he graduated as Cum Laude. He is also a member of Una Mano Aiuta L Altra Inc, a Non-government Organization providing educational and spiritual support for the children of Tondo, Manila. His advocacy for transformative education has reached Indonesia as he is a regular facilitator and speaker for Public School Teachers of Indonesia under the  Yayasan Emmanuel’s Innovative School’s Program in partnership with the Indonesia’s Ministry of Education.</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="images/founders/Mercy Fidelis G. Guerrero.jpg" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Mercy Fidelis Guerrero</h2>
-                <p class="founder-description">Mercy Fidelis G. Guerrero graduated from the Philippine Normal University. She previously served as a teacher at Diliman Preparatory School for two remarkable years and is currently a dedicated public school teacher at Holy Spirit National High School. Additionally, she is an active member of Project G.A.L.A.</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="image.png" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Princess Intong</h2>
-                <p class="founder-description">N/A</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="images/founders/Aubrey Joson.jpg" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Aubrey Mikaela Joson</h2>
-                <p class="founder-description">Ms. Aubrey Mikaela Joson completed her Bachelor’s degree in Social Science Education with a Certificate in Teaching Junior High School from the Philippine Normal University in 2018, graduating as a top student and Cum Laude. She has since dedicated herself to teaching Araling Panlipunan for the past six years. Currently, Ms. Joson teaches Araling Panlipunan at Valenzuela National High School, where she also serves as the Supreme Secondary Learner Government (SSLG) Adviser. Recognized for her exceptional contributions to education, Ms. Joson was named one of the Outstanding Teachers of SDO Valenzuela for both 2021 and 2022. She is also an active volunteer and resource speaker, she frequently addresses topics such as youth leadership, human rights, child protection policy, gender equality, and volunteerism.</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="images/founders/Mel Lizardo.jpg" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Mel Franky S. Lizardo </h2>
-                <p class="founder-description">Mel Franky Lizardo is a dedicated educator with a Bachelor’s degree in Social Science Education from the Philippine Normal University. From 2018 to 2023, Mel worked as a Licensed Professional Teacher at San Sebastian College Recoletos Manila, and is currently an academic course designer. Pursuing further education, Mel is studying for an MA in Anthropology at the University of the Philippines Diliman. Between 2017 and 2019, Mel was actively involved in Project Gala, leading impactful initiatives such as Unang GALA in Manila and the Iloveyou300 project in Itogon, Benguet. Passionate about teaching and volunteer work, Mel excels in organizing logistics, managing budgets, and creating audiovisual and graphic materials to support educational endeavors.</p>
-            </div>
-        </div>
-        <div class="founder">
-            <img src="image.png" alt="Founder Image" class="founder-image">
-            <div class="founder-info">
-                <h2 class="founder-name">Christ-Ellah Villa-real</h2>
-                <p class="founder-description">N/A</p>
-            </div>
-        </div>
-    </div>
+
+    
     
 
     <footer>
@@ -131,12 +213,10 @@
                 <div class="about-us-section">
                     <h3>About Us</h3>
                     <ul>
-                        <li><a href="#">Mission & Vision</a></li>
-                        <li><a href="#">Journey</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Board of Directors</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="../public/Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="../public/Our_Journey.html">Journey</a></li>
+                        <li><a href="../public/Founders.html">Founders</a></li>
+                        <li><a href="../public/TermsAndConditions.html">Terms and Conditions</a></li>
                     </ul>
                 </div>
                 <div class="contact-section">
@@ -159,5 +239,6 @@
     </footer>
     
     <script src="js/Founders.js"></script>
+    <script src="js/donate-popup.js"></script>
 </body>
 </html>

@@ -22,16 +22,29 @@ body {
 header {
     background-color: #22529b;
     color: white;
-    padding: 20px -5px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    box-sizing: border-box; 
-    z-index: 2;
-    overflow: hidden;
 }
 
+.donate-button {
+    background-color: #4a82d8;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.donate-button:hover {
+    background-color: #e65a50;
+}
 
 .logo {
     height: 80px; 
@@ -253,24 +266,38 @@ nav ul li a[data-arrow]:hover::after {
     background-size: cover;
     background-attachment: fixed;
     color: white;
+    margin-left: -1%;
     padding: 20px;
     text-align: left;
     flex: 1 0 auto;
 }
 
 .contact-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    color: #333; /* Dark text color */
+    background-color: rgba(255, 255, 255, 0.9); 
+    color: #333;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 70%; /* Adjusted width */
-    margin: 0 auto; /* Centered container */
+    width: 70%; 
+    margin: 0 auto;
 }
 
 .contact-details {
     margin: 20px 0;
     color: #22529b;
+}
+
+.contact-details p {
+    text-align: center;
+    margin: 20px 0;
+    color: #777;;
+}
+
+.contact-details h2{
+    text-align: center;
+    font-size: 2.5em;
+    color: #22529b;
+    margin-bottom: 20px;
 }
 
 .contact-details input[type="text"],

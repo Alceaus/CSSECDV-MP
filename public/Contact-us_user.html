@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project GALA | Contact Us</title>
+    <link rel="stylesheet" href="css/LOGIN-OUT.css">
+    <link rel="stylesheet" href="css/Contact-us_user.css">
+    <link rel="stylesheet" href="css/donate-popup.css">
+    <link rel="stylesheet" href="css/iframe.css">
+    <link rel="icon" href="images/logo.png" type="image/png">
+</head>
+<body>
+    <header>
+        <a href="home-default.html">
+            <img src="images/gala-logo.png" alt="Project GALA Logo" class="logo">
+        </a>
+        <button class="donate-button" onclick="showDonateModal()">DONATE NOW</button>
+    </header>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDonateModal()">&times;</span>
+            <h2>Select Donation Method</h2>
+            <div class="modal-buttons">
+                <div class="donation-option" onclick="showImage('bank')">
+                    <img src="images/Donation/Bank.png" alt="Bank Image" class="donation-image">
+                    <div class="modal-label">Bank</div>
+                </div>
+                <div class="donation-option" onclick="showImage('gcash')">
+                    <img src="images/Donation/G-Cash.png" alt="Gcash Image" class="donation-image">
+                    <div class="modal-label">Gcash</div>
+                </div>
+            </div>
+            <img id="donationImage" src="" alt="Donation Image" style="display: none; margin-top: 20px; width: 100%;">
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <a href="#" data-arrow> ABOUT US</a>
+                <div class="dropdown-content about-us-dropdown">
+                    <a href="Mission_Vision_Purpose.html">MISSION, VISION & PURPOSE</a>
+                    <a href="Our_Journey.html">JOURNEY</a>
+                    <a href="Founders.html">FOUNDERS</a>
+                </div>
+            </li>
+            
+            <li class="dropdown">
+                <a href="#" data-arrow> REPORTS AND PUBLICATIONS</a>
+                <div class="dropdown-content reports-dropdown"> 
+                    <a href="featured-stories_user.html">FEATURED STORIES</a>
+                    <a href="multimedia-resources.html">MULTIMEDIA RESOURCES</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-arrow> CONTACT</a>
+                <div class="dropdown-content contact-dropdown"> 
+                    <a href="Contact-us_user.html">CONTACT US</a>
+                    <a href="get-in-touch.html">GET IN TOUCH</a>
+                    <a href="partner-with-us.html">PARTNER WITH US</a>
+                    <a href="volunteer-with-us.html">VOLUNTEER WITH US</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="Feedback.html" data-arrow> FEEDBACK</a>
+            </li>  
+            <li id="account-link" class="dropdown">
+                <!-- Placeholder content to be replaced by JavaScript -->
+            </li>
+        </ul>
+    </nav>
+    
+    <iframe src="chatbot.html" class="popup-iframe"></iframe>
+
+    <div class="background-container">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            <p class="contact-intro">For any general inquiries, feedback, or additional information, feel free to get in touch. We are based in Metro Manila, Philippines, and are eager to hear from you. Contact us via:</p>
+            <div class="contact-options">
+                <div class="contact-option">
+                    <img src="images/Contact Us/Address.png" alt="Address Icon">
+                    <h3>Address</h3>
+                    <p id="address"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Clock.png" alt="Business Hours Icon">
+                    <h3>Business Hours</h3>
+                    <p id="business-hours"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Phone.png" alt="Phone Icon">
+                    <h3>Contact Number</h3>
+                    <p id="contact-number"></p>
+                </div>
+                <div class="contact-option">
+                    <img src="images/Contact Us/Email.png" alt="Email Icon">
+                    <h3>Email Address</h3>
+                    <p id="email-address"></p>
+                </div>
+            </div>
+            <p class="contact-outro">We look forward to connecting with you and working together to create a more inclusive and supportive community.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
+            <div class="footer-description">
+                <p>Project G.A.L.A. (Give A Love Anywhere) is a private, non-profit, non-partisan, and non-government organization that strongly advocates for an inclusive society through transformative education.</p>
+            </div>
+            <div class="footer-links">
+                <div class="about-us-section">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="../public/Mission_Vision_Purpose.html">Mission, Vision, & Purpose</a></li>
+                        <li><a href="../public/Our_Journey.html">Journey</a></li>
+                        <li><a href="../public/Founders.html">Founders</a></li>
+                        <li><a href="../public/TermsAndConditions.html">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="contact-section">
+                    <h3>Contact Us</h3>
+                    <p>For more immediate concerns, you may reach us at:<br><br></p>
+                    <p><strong>Email Address:</strong> project.gala.2017@gmail.com</p>
+                    <p><strong>Contact Number:</strong><br> 0939 752 7749</p>
+                </div>                
+                <div class="follow-connect">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/GAlAProject"><img src="images/facebook.png" alt="Facebook"></a>
+                    </div>                
+                </div>
+            </div>
+        </div>        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Project GALA. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="js/Contact_us-user.js"></script>
+    <script src="js/donate-popup.js"></script>
+</body>
+</html>

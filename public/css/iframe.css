@@ -1,0 +1,11 @@
+.popup-iframe {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    border: none;
+    z-index: 1000;
+    display: block;
+    border-radius: 10px;
+}

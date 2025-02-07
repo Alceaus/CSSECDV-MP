@@ -12,6 +12,7 @@ html, body {
 
 .sidebar {
     width: 20%;
+    margin-left: 2%;
     background-color: #9ec6f8;
     padding: 20px;
     text-align: center;
@@ -24,6 +25,24 @@ html, body {
     background-color: #B6D1FA;
     box-sizing: border-box;
     overflow: auto;
+}
+
+.donate-button {
+    background-color: #4a82d8;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.donate-button:hover {
+    background-color: #e65a50;
 }
 
 footer {
@@ -493,6 +512,7 @@ footer p {
 
 .menu {
     margin-top: 20px;
+    margin-left:-20px;
 }
 
 .menu-item {
@@ -514,49 +534,45 @@ footer p {
 }
 
 .profile-header {
-    font-size: 20px;
-    margin-top: -2%;
-}
-
-.profile-header h1,
-.profile-header p {
-    color: white;
+    font-size: 20px;  
 }
 
 .nav-tabs {
     display: flex;
     justify-content: flex-start;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .tab {
     padding: 10px 20px;
     margin-right: 10px;
-    color: white;
+    color: #22529b;
     text-decoration: none;
     font-weight: bold;
 }
 
 .tab:hover {
     background-color: #86b3ea;
+    color:white;
 }
 
 .tab.active {
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid #22529b;
+    color: white;
 }
 
 .tab-line {
-    border-bottom: 3px solid white;
+    border-bottom: 3px solid #22529b;
     width: 70%; 
     margin-top: -3px;
 }
 
 .section {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .section h2 {
-    color: white;
+    color: #22529b;
 }
 
 .tab-content {
@@ -575,7 +591,7 @@ table {
 
 th,
 td {
-    border: 2px solid white;
+    border: 2px solid #22529b;
     padding: 10px;
     text-align: left;
     width: 25%;
@@ -587,14 +603,47 @@ th {
 }
 
 /* ---------------------------------------------------- BODY ----------------------------------------------------*/
+
+.profile-section {
+    padding: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .details-container {
     display: flex;
-    align-items: center;
-    color: white;
-    margin-bottom: 2%; 
-    justify-content: flex-start; 
+    align-items: flex-start;
+    color: #777;
+    margin-bottom: 2%;
     margin-left: -20%;
-    min-width: 600px; 
+    min-width: 600px;
+}
+
+.profile-header h1 {
+    margin: 0;
+    font-size: 30px;
+    color: #22529b;
+}
+
+.profile-header p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #777;
+}
+
+[contenteditable="true"] {
+    border: 1px solid #ddd;
+    padding: 2px;
+    border-radius: 3px;
 }
 
 .details-labels, .details-info {
@@ -603,22 +652,12 @@ th {
 }
 
 .details-labels {
-    text-align: center;
+    text-align: right;
+    margin-right: 10px;
 }
 
 .details-info {
-    position: relative;
-    margin-left: -15%; 
-}
-
-.details-info::before {
-    content: ""; 
-    position: absolute;
-    left: -20px; 
-    top: 0;
-    bottom: 0; 
-    width: 2px; 
-    background-color: white;
+    flex: 2;
 }
 
 .details-info input {
@@ -626,4 +665,88 @@ th {
     padding: 5px;
     margin: 5px 0;
     box-sizing: border-box;
+}
+
+.skills-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-container input {
+    margin-top: 5px;
+}
+
+.add-skill-btn {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.vertical-line {
+    width: 2px;
+    background-color: #22529b;
+    height: auto;
+    margin: 0 20px;
+    align-self: stretch;
+    border-radius: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #4a82d8;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #365899;
+}
+
+.edit-buttons {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.profile-pic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-pic-upload {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#profile-pic-input {
+    display: none;
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4a82d8;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.upload-button:hover {
+    background-color: #365899;
 }

@@ -1,0 +1,38 @@
+/* Define the styles for the login and logout dropdowns */
+.dropdown.login a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dropdown.logout a {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dropdown-content.logout-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #365899;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    margin-left: -2px;
+}
+
+.dropdown.logout:hover .logout-dropdown {
+    display: block;
+}
+
+nav ul li.login {
+    margin-left: auto;
+}
+
+nav ul li.logout {
+    margin-left: auto;
+}
