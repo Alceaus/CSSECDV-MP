@@ -12,6 +12,7 @@ const createUser = `
         Phone VARCHAR(20),
         Address VARCHAR(255),
         Password VARCHAR(255),
+        Salt VARCHAR(32),
         Role VARCHAR(20),
         Status BOOLEAN
     )
