@@ -68,7 +68,7 @@ function addContactInfo() {
             const formData = new FormData();
             formData.append('image', selectedFile);
 
-            return fetch('/uploadImage', {
+            return fetch('/upload/uploadImage', {
                 method: 'POST',
                 body: formData
             })
@@ -80,7 +80,7 @@ function addContactInfo() {
             })
             .then(data => {
                 contact.images.push(data.imagePath);
-                return fetch('/addContact', {
+                return fetch('/contact/addContact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ function addContactInfo() {
                 });
             });
         } else {
-            return fetch('/addContact', {
+            return fetch('/contact/addContact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -117,7 +117,7 @@ function addContactInfo() {
 }
 
 function loadContact() {
-    fetch('/getContact')
+    fetch('/contact/getContact')
         .then(response => response.json())
         .then(data => {
             if (data.contact) {

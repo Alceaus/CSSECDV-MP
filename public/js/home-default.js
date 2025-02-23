@@ -26,7 +26,7 @@ function plusSlides(n) {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('/addVisitorCount', {
+    fetch('/visitorCount/addVisitorCount', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

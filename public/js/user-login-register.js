@@ -100,7 +100,32 @@ document.addEventListener('DOMContentLoaded', function () {
             confirmPasswordError.textContent = '';  
         }
     }
-    
+
+    // Image upload validation
+    photo.addEventListener('change', async function(event) {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/upload/uploadFile', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.text();
+
+            if (!response.ok) {
+                photoErrorMessage.textContent = result;
+                photoErrorMessage.style.color = 'red';
+                photo.value = '';
+            } else {
+                photoErrorMessage.textContent = '';
+            }
+        } catch (error) {
+            photoErrorMessage.textContent = 'Upload failed. Please try again.';
+            photoErrorMessage.style.color = 'red';
+        }
+    });
 
     // Handle login form submission
     loginForm.addEventListener('submit', function (event) {
@@ -111,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             password: document.getElementById('password').value
         };
 
-        fetch('/login', {
+        fetch('/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -149,12 +174,6 @@ document.addEventListener('DOMContentLoaded', function () {
     registerForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        /*
-        if (!validateConfirmPassword()) {
-            alert('Please make sure your passwords match.');
-            return;
-        } */
-
         const formData = {
             firstName: document.getElementById('firstName').value,
             mi: document.getElementById('mi').value,
@@ -163,11 +182,10 @@ document.addEventListener('DOMContentLoaded', function () {
             email: document.getElementById('emailRegister').value,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
-            createPassword: document.getElementById('createPassword').value,
-            confirmPassword: document.getElementById('confirmPassword').value
+            createPassword: document.getElementById('createPassword').value
         };
 
-        fetch('/register', {
+        fetch('/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -186,22 +204,5 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Registration failed. Please try again.");
             console.error('There was a problem with the fetch operation:', error);
         });
-    });
-
-    // Image upload validation
-    photo.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const fileType = file.type;
-            const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-
-            if (!validTypes.includes(fileType)) {
-                photoErrorMessage.textContent = 'Please upload a valid image (JPEG, PNG, or GIF only).';
-                photoErrorMessage.style.color = 'red';
-                photo.value = '';
-            } else {
-                photoErrorMessage.textContent = '';
-            }
-        }
     });
 });

@@ -61,7 +61,7 @@ function createStory() {
     const formData = new FormData();
     formData.append('image', selectedFile);
 
-    fetch('/uploadImage', {
+    fetch('/upload/uploadImage', {
         method: 'POST',
         body: formData
     })
@@ -73,7 +73,7 @@ function createStory() {
     })
     .then(data => {
         story.images.push(data.imagePath);
-        return fetch('/addStory', {
+        return fetch('/stories/addStory', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ function createStory() {
 }
 
 function loadStories() {
-    fetch('/allStories')
+    fetch('/stories/allStories')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch stories');
@@ -202,7 +202,7 @@ function adjustAlbumLayout() {
 }
 
 function deleteStory(storyId) {
-    fetch(`/deleteStory/${storyId}`, {
+    fetch(`/stories/deleteStory/${storyId}`, {
         method: 'DELETE',
     })
     .then(response => {
@@ -257,7 +257,7 @@ function saveStory(storyId) {
         category: document.getElementById('editAlbumCategory').value
     };
 
-    fetch(`/editStory/${storyId}`, {
+    fetch(`/stories/editStory/${storyId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

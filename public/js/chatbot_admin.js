@@ -11,7 +11,7 @@ document.getElementById('user-input').addEventListener('keypress', function(even
 document.addEventListener('DOMContentLoaded', loadQA);
 
 function loadQA() {
-    fetch('/allQA')
+    fetch('/qa/allQA')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -94,7 +94,7 @@ function addQA() {
     const answer = answerInput.value.trim();
 
     if (question !== '' && answer !== '') {
-        const url = editId ? `/editQA/${editId}` : '/addQA';
+        const url = editId ? `/qa/editQA/${editId}` : '/qa/addQA';
         const method = editId ? 'PUT' : 'POST';
         const successMessage = editId ? 'edited' : 'added';
 
@@ -141,7 +141,7 @@ function editQA(id, row) {
 }
 
 function deleteQA(id, row) {
-    fetch(`/deleteQA/${id}`, {
+    fetch(`/qa/deleteQA/${id}`, {
         method: 'DELETE',
     })
     .then(response => response.json())

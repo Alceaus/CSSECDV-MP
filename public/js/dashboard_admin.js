@@ -49,7 +49,7 @@ function loadContent(content) {
 }
 
 function loadVisitorCount() {
-    fetch('/getVisitorCount')
+    fetch('/visitorCount/getVisitorCount')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch visitor count');
@@ -66,7 +66,7 @@ function loadVisitorCount() {
 }
 
 function loadUsers() {
-    fetch('/allUsers')
+    fetch('/users/allUsers')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch users');
@@ -83,7 +83,7 @@ function loadUsers() {
 }
 
 function loadVolunteers() {
-    fetch('/allVolunteers')
+    fetch('/volunteers/allVolunteers')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch volunteers');
@@ -100,7 +100,7 @@ function loadVolunteers() {
 }
 
 function loadPartners() {
-    fetch('/allPartners')
+    fetch('/partners/allPartners')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch partners');
@@ -117,7 +117,7 @@ function loadPartners() {
 }
 
 function loadGetInTouch() {
-    fetch('/allGetInTouch')
+    fetch('/getInTouch/allGetInTouch')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch get in touch');
@@ -340,7 +340,7 @@ function displayGetInTouchMessages() {
 }
 
 function approveVolunteer(volunteerId, row, email) {
-    fetch(`/approveVolunteer/${volunteerId}`, {
+    fetch(`/volunteers/approveVolunteer/${volunteerId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -363,7 +363,7 @@ function approveVolunteer(volunteerId, row, email) {
 }
 
 function rejectVolunteer(volunteerId, row, email) {
-    fetch(`/deleteVolunteer/${volunteerId}`, {
+    fetch(`/volunteers/deleteVolunteer/${volunteerId}`, {
         method: 'DELETE',
         body: JSON.stringify({ email })
     })
@@ -383,7 +383,7 @@ function rejectVolunteer(volunteerId, row, email) {
 }
 
 function approvePartner(volunteerId, row, email) {
-    fetch(`/approvePartner/${volunteerId}`, {
+    fetch(`/partners/approvePartner/${volunteerId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -406,7 +406,7 @@ function approvePartner(volunteerId, row, email) {
 }
 
 function rejectPartner(partnerId, row, email) {
-    fetch(`/deletePartner/${partnerId}`, {
+    fetch(`/partners/deletePartner/${partnerId}`, {
         method: 'DELETE',
         body: JSON.stringify({ email })
     })

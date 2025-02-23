@@ -1,4 +1,3 @@
-
 let slideIndex = 0;
 showSlides();
 
@@ -27,7 +26,7 @@ function plusSlides(n) {
 document.addEventListener("DOMContentLoaded", function() {
     async function checkLoginStatus() {
         try {
-            const response = await fetch('/checkLogin');
+            const response = await fetch('/auth/checkLogin');
             const data = await response.json();
             return data.isLoggedIn;
         } catch (error) {
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
 
             document.getElementById('logout-link').addEventListener('click', async function() {
-                await fetch('/logout');
+                await fetch('/auth/logout');
                 sessionStorage.removeItem('isLoggedIn');
                 window.location.href = 'home-default.html';
             });
@@ -62,6 +61,15 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
         }
     }
+    // const timeout = 1 * 10 * 1000;
+
+    // setInterval(async () => {
+    //     const isLoggedIn = await checkLoginStatus();
+    //     if (!isLoggedIn) {
+    //         alert('Session expired. Redirecting to login.');
+    //         window.location.href = 'home-default.html';
+    //     }
+    // }, timeout);
 
     updateNavigation();
 });

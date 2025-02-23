@@ -98,7 +98,7 @@ function addPartner() {
         description: description
     };
 
-    fetch('/addPartner', {
+    fetch('/partners/addPartner', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ function addVolunteer() {
         reason: reason
     };
 
-    fetch('/addVolunteer', {
+    fetch('/volunteers/addVolunteer', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

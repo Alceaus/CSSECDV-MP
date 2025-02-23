@@ -129,7 +129,7 @@ function deleteAlbum(albumId) {
         albumElement.remove();
     }
 
-    fetch(`/api/albums/${albumId}`, {
+    fetch(`/albums/deleteAlbum/${albumId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

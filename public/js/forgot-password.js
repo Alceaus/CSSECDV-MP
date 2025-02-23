@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             uniqueKey: uniqueKey
         };
 
-        fetch('/verifyEmail', {
+        fetch('/auth/verifyEmail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ function resetPassword(email) {
         };
 
         if (uniqueKey === enteredKey) {
-            fetch(`/resetPassword`, {
+            fetch(`/auth/resetPassword`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
