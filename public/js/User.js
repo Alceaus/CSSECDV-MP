@@ -61,16 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
             `;
         }
     }
-    // const timeout = 1 * 10 * 1000;
-
-    // setInterval(async () => {
-    //     const isLoggedIn = await checkLoginStatus();
-    //     if (!isLoggedIn) {
-    //         alert('Session expired. Redirecting to login.');
-    //         window.location.href = 'home-default.html';
-    //     }
-    // }, timeout);
-
     updateNavigation();
 });
 
