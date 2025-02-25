@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const routes = require('./src/router');
 const initData = require('./src/initData');
+const { isAdmin, sessionTimeout } = require('./src/middleware');
 require('dotenv').config();
 
 const debug = process.env.DEBUG;
@@ -18,40 +19,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-app.use((req, res, next) => {
-    if (!req.session || !req.session.isLoggedIn) return next();
-
-    if (!req.session.lastAccess) {
-        req.session.lastAccess = Date.now();
-    } else {
-        const now = Date.now();
-        const sessionAge = now - req.session.lastAccess;
-        const timeout = 1 * 10 * 1000;
-
-        if (sessionAge > timeout) {
-            req.session.destroy((err) => {
-                if (err) {
-                    console.error("Error destroying session:", err);
-                    return next();
-                }
-                res.clearCookie('connect.sid');
-                return res.status(401).json({ success: false, message: "Session expired. Please log in again." });
-            });
-            return;
-        }
-        req.session.lastAccess = now;
-    }
-    next();
-});
-
-// app.use('/User', (req, res, next) => {
-//     if (req.session && req.session.isLoggedIn) {
-//         next();
-//     } else {
-//         res.status(401).send('401 Unauthorized');
-//     }
-// });
 
 app.use((req, res, next) => {
     if (req.path.endsWith('.html')) {
@@ -73,10 +40,31 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/User', (req, res, next) => {
+    if (req.session && req.session.isLoggedIn) {
+        next();
+    } else {
+        res.status(401).send('401 Unauthorized');
+    }
+});
+
+app.use((req, res, next) => {
+    const exemptedAdminPaths = ['/login_admin.html', '/forgot-password_admin.html', '/TermsOfUse_admin.html'];
+
+    if (req.path.endsWith('admin.html')) {
+        if (exemptedAdminPaths.includes(req.path)) {
+            return next();
+        }
+        return isAdmin(req, res, next);
+    }
+    next();
+});
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home-default.html'));
 });
 
+app.use(sessionTimeout);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(routes);
