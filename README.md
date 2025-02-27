@@ -38,4 +38,6 @@ DB_PASSWORD = (enter password)
 DB_NAME = (enter database name)
 PORT = 3000
 SECRET = secretkey
+PEPPER = (enter pepper key)
+DEBUG = false
 ```
