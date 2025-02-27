@@ -96,7 +96,7 @@ function addQA() {
     if (question !== '' && answer !== '') {
         const url = editId ? `/qa/editQA/${editId}` : '/qa/addQA';
         const method = editId ? 'PUT' : 'POST';
-        const successMessage = editId ? 'edited' : 'added';
+        const errorMessage = editId ? 'edit' : 'add';
 
         fetch(url, {
             method: method,
@@ -124,7 +124,7 @@ function addQA() {
                 answerInput.value = '';
                 document.querySelector('button[onclick="addQA()"]').textContent = 'Add Q&A';
             } else {
-                alert(`Failed to ${successMessage} Q&A`);
+                alert(`Failed to ${errorMessage} Q&A`);
             }
         })
         .catch(error => console.error('Error:', error));
