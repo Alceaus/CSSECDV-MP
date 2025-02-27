@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../db');
+const { logAdmin } = require('../logger');
 const util = require('util');
 const router = express.Router();
 const query = util.promisify(db.query).bind(db);
@@ -27,6 +28,7 @@ router.get('/getContact', async (req, res) => {
 router.post('/addContact', async (req, res) => {
     try {
         const { address, number, network, email, images, schedule } = req.body;
+        const userId = req.session.userId;
 
         const checkContactQuery = 'SELECT ContactID FROM contact LIMIT 1';
         const rows = await query(checkContactQuery);
@@ -69,9 +71,10 @@ router.post('/addContact', async (req, res) => {
         });
         await Promise.all(businessHoursPromises);
 
+        logAdmin(`Admin User ID: ${userId} edited contact details: (Address: ${address}, Phone: ${number}, Network: ${network}, Email: ${email})`);
         res.json({ success: true });
     } catch (err) {
-        console.error('Error adding contact:', err);
+        logAdmin(`Error editing contact details: ${err.message}`);
         res.status(500).json({ success: false, message: 'An error occurred while adding the contact' });
     }
 });

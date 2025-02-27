@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../db');
+const { logAdmin } = require('../logger');
 const util = require('util');
 const router = express.Router();
 const query = util.promisify(db.query).bind(db);
