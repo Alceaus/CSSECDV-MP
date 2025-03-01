@@ -12,7 +12,7 @@ const logger = (logFile, syslogApp) => {
 
     try {
         const syslogTransport = new winston.transports.Syslog({
-            host: "10.148.181.62", // replace with the system's IP address
+            host: "192.168.68.142", // replace with the system's IP address
             port: 514, // 514 for udp, 601 for tcp
             protocol: "udp4", // either udp4 or tcp4
             app_name: syslogApp,
