@@ -84,10 +84,10 @@ router.post('/admin/login', async (req, res) => {
             req.session.userId = user.UserID;
             req.session.isLoggedIn = true; 
             
-            logAuth(`Admin ID: ${user.UserID} logged in successfully`);
+            logAuth(`User ID: ${user.UserID} logged in successfully`);
             res.json({ success: true, role: user.Role });
         } else {
-            logAuth(`Failed admin login attempt for Admin ID: ${user.UserID}`);
+            logAuth(`Failed admin login attempt for User ID: ${user.UserID}`);
             res.status(401).json({ success: false, message: 'Invalid email or password' });
         }
     } catch (err) {
