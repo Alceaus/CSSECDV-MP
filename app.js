@@ -1,3 +1,4 @@
+const https = require("https");
 const express = require('express');
 const session = require('express-session');
 const app = express();
@@ -9,6 +10,10 @@ const initData = require('./src/initData');
 const { isAdmin, sessionTimeout } = require('./src/middleware');
 require('dotenv').config();
 
+const options = {
+    key: fs.readFileSync("server.key"),
+    cert: fs.readFileSync("server.cert")
+  };
 const debug = process.env.DEBUG;
 
 app.use(bodyParser.json());
@@ -71,6 +76,6 @@ app.use(routes);
 initData();
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+https.createServer(options, app).listen(port, () => {
+    console.log(`HTTPS Server running on port ${port}`);
 });
