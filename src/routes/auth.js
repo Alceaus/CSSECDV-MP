@@ -8,10 +8,16 @@ const router = express.Router();
 const query = util.promisify(db.query).bind(db);
 require('dotenv').config();
 
+const flaggedIPs = new Map();
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
-    message: { success: false, message: 'Too many login attempts. Please try again later.' }
+    handler: (req, res) => {
+        const ip = req.ip;
+        flaggedIPs.set(ip, Date.now());
+        logAuth(`IP ${ip} flagged due to excessive login attempts`);
+        res.status(429).json({ success: false, message: 'Too many login attempts. Please try again later.' });
+    }
 });
 
 function generateSalt(length = 16) {
@@ -62,7 +68,13 @@ router.get('/logout', async (req, res) => {
     }
 });
 
-router.post('/admin/login', async (req, res) => {
+router.post('/admin/login', loginLimiter, async (req, res) => {
+    const ip = req.ip;
+
+    if (flaggedIPs.has(ip)) {
+        return res.status(403).json({ success: false, message: 'Too many login attempts. Please try again later.' });
+    }
+    
     try {
         const { email, password } = req.body;
         const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role = "Admin"';
@@ -97,6 +109,12 @@ router.post('/admin/login', async (req, res) => {
 });
 
 router.post('/login', loginLimiter, async (req, res) => {
+    const ip = req.ip;
+
+    if (flaggedIPs.has(ip)) {
+        return res.status(403).json({ success: false, message: 'Too many login attempts. Please try again later.' });
+    }
+    
     try {
         const { email, password } = req.body;
         const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role != "Admin"';
