@@ -7,8 +7,9 @@ const query = util.promisify(db.query).bind(db);
 
 router.get('/allPartners', async (req, res) => {
     try {
-        const partnerQuery = 'SELECT * FROM partner WHERE Status != ?';
-        const results = await query(partnerQuery, ['Approved']);
+        // Fetch all partners instead of filtering out approved ones
+        const partnerQuery = 'SELECT * FROM partner';
+        const results = await query(partnerQuery);
         res.json({ success: true, data: results });
     } catch (err) {
         console.error('Error fetching partners:', err);

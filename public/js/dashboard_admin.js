@@ -180,34 +180,39 @@ function displayUserList() {
             const roleCell = document.createElement('td');
             roleCell.textContent = user.Role;
             listItem.appendChild(roleCell);
-
-            const statusCell = document.createElement('td');
-            const statusSpan = document.createElement('span');
-            statusSpan.classList.add(user.Status ? 'online' : 'offline');
-            statusSpan.textContent = user.Status ? 'Online' : 'Offline';
-            statusCell.appendChild(statusSpan);
-            listItem.appendChild(statusCell);
         }
         userList.appendChild(listItem);
     });
 }
 
 function displayVolunteerApplications() {
-    if (isOverview == 0) {
-        var volunteerTable = document.getElementById('volunteer-applications');
-    } else if (isOverview == 1) {
-        var volunteerTable = document.getElementById('volunteer-applications-summary-graph');
-    }
+    const volunteerTable = document.getElementById('volunteer-applications');
+    const approvedTable = document.getElementById('approved-volunteers');
+    
+    // Clear the current content
     volunteerTable.innerHTML = '';
+    approvedTable.innerHTML = '';
+    
+    // Separate volunteers by status
+    const pendingVolunteers = volunteerApplications.filter(app => app.Status !== 'Approved');
+    const approvedVolunteers = volunteerApplications.filter(app => app.Status === 'Approved');
+    
+    // Display pending volunteers
+    if (pendingVolunteers.length === 0) {
+        const emptyRow = document.createElement('tr');
+        const emptyCell = document.createElement('td');
+        emptyCell.textContent = 'No pending volunteer applications';
+        emptyCell.colSpan = 8;
+        emptyRow.appendChild(emptyCell);
+        volunteerTable.appendChild(emptyRow);
+    } else {
+        pendingVolunteers.forEach(application => {
+            const row = document.createElement('tr');
+            
+            const fullNameCell = document.createElement('td');
+            fullNameCell.textContent = application.FullName;
+            row.appendChild(fullNameCell);
 
-    volunteerApplications.forEach(application => {
-        const row = document.createElement('tr');
-        
-        const fullNameCell = document.createElement('td');
-        fullNameCell.textContent = application.FullName;
-        row.appendChild(fullNameCell);
-
-        if (isOverview == 0) {
             const emailCell = document.createElement('td');
             emailCell.textContent = application.Email;
             row.appendChild(emailCell);
@@ -220,9 +225,17 @@ function displayVolunteerApplications() {
             skillsCell.textContent = application.Skills;
             row.appendChild(skillsCell);
 
-            const eventDate = new Date(application.Availability);
-            const options = { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            const formattedDate = eventDate.toLocaleString('en-US', options);
+            // Handle potential null availability
+            let formattedDate = 'Not specified';
+            if (application.Availability) {
+                try {
+                    const eventDate = new Date(application.Availability);
+                    const options = { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    formattedDate = eventDate.toLocaleString('en-US', options);
+                } catch (e) {
+                    console.error('Error formatting date:', e);
+                }
+            }
 
             const availabilityCell = document.createElement('td');
             availabilityCell.textContent = formattedDate;
@@ -240,39 +253,36 @@ function displayVolunteerApplications() {
             
             const approveButton = document.createElement('button');
             approveButton.textContent = 'Approve';
+            approveButton.classList.add('approve-btn');
             approveButton.onclick = () => approveVolunteer(application.VolunteerID, row, application.Email);
             actionsCell.appendChild(approveButton);
 
             const rejectButton = document.createElement('button');
             rejectButton.textContent = 'Reject';
+            rejectButton.classList.add('reject-btn');
             rejectButton.onclick = () => rejectVolunteer(application.VolunteerID, row, application.Email);
             actionsCell.appendChild(rejectButton);
 
             row.appendChild(actionsCell);
-        }
-        volunteerTable.appendChild(row);
-    });
-}
-
-function displayPartnerApplications() {
-    if (isOverview == 0) {
-        var partnerTable = document.getElementById('partner-applications');
-    } else if (isOverview == 1) {
-        var partnerTable = document.getElementById('partner-applications-summary-graph');
+            volunteerTable.appendChild(row);
+        });
     }
-    partnerTable.innerHTML = ''; 
-
-    partnerApplications.forEach(application => {
-        const row = document.createElement('tr');
-        
-        const orgNameCell = document.createElement('td');
-        orgNameCell.textContent = application.OrgName;
-        row.appendChild(orgNameCell);
-
-        if (isOverview == 0) {
-            const contactPersonCell = document.createElement('td');
-            contactPersonCell.textContent = application.ContactPerson;
-            row.appendChild(contactPersonCell);
+    
+    // Display approved volunteers
+    if (approvedVolunteers.length === 0) {
+        const emptyRow = document.createElement('tr');
+        const emptyCell = document.createElement('td');
+        emptyCell.textContent = 'No approved volunteers';
+        emptyCell.colSpan = 7;
+        emptyRow.appendChild(emptyCell);
+        approvedTable.appendChild(emptyRow);
+    } else {
+        approvedVolunteers.forEach(application => {
+            const row = document.createElement('tr');
+            
+            const fullNameCell = document.createElement('td');
+            fullNameCell.textContent = application.FullName;
+            row.appendChild(fullNameCell);
 
             const emailCell = document.createElement('td');
             emailCell.textContent = application.Email;
@@ -281,6 +291,79 @@ function displayPartnerApplications() {
             const phoneCell = document.createElement('td');
             phoneCell.textContent = application.Phone;
             row.appendChild(phoneCell);
+
+            const skillsCell = document.createElement('td');
+            skillsCell.textContent = application.Skills;
+            row.appendChild(skillsCell);
+
+            // Handle potential null availability
+            let formattedDate = 'Not specified';
+            if (application.Availability) {
+                try {
+                    const eventDate = new Date(application.Availability);
+                    const options = { month: 'long', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    formattedDate = eventDate.toLocaleString('en-US', options);
+                } catch (e) {
+                    console.error('Error formatting date:', e);
+                }
+            }
+
+            const availabilityCell = document.createElement('td');
+            availabilityCell.textContent = formattedDate;
+            row.appendChild(availabilityCell);
+
+            const previousExperienceCell = document.createElement('td');
+            previousExperienceCell.textContent = application.PreviousExperience;
+            row.appendChild(previousExperienceCell);
+
+            const whyVolunteerCell = document.createElement('td');
+            whyVolunteerCell.textContent = application.WhyVolunteer;
+            row.appendChild(whyVolunteerCell);
+
+            approvedTable.appendChild(row);
+        });
+    }
+}
+
+function displayPartnerApplications() {
+    const partnerTable = document.getElementById('partner-applications');
+    const approvedTable = document.getElementById('approved-partners');
+    
+    // Clear the current content
+    partnerTable.innerHTML = '';
+    approvedTable.innerHTML = '';
+    
+    // Separate partners by status
+    const pendingPartners = partnerApplications.filter(app => app.Status !== 'Approved');
+    const approvedPartners = partnerApplications.filter(app => app.Status === 'Approved');
+    
+    // Display pending partners
+    if (pendingPartners.length === 0) {
+        const emptyRow = document.createElement('tr');
+        const emptyCell = document.createElement('td');
+        emptyCell.textContent = 'No pending partner applications';
+        emptyCell.colSpan = 7;
+        emptyRow.appendChild(emptyCell);
+        partnerTable.appendChild(emptyRow);
+    } else {
+        pendingPartners.forEach(application => {
+            const row = document.createElement('tr');
+            
+            const orgNameCell = document.createElement('td');
+            orgNameCell.textContent = application.OrgName;
+            row.appendChild(orgNameCell);
+
+            const contactPersonCell = document.createElement('td');
+            contactPersonCell.textContent = application.ContactPerson;
+            row.appendChild(contactPersonCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = application.Phone;
+            row.appendChild(phoneCell);
+
+            const emailCell = document.createElement('td');
+            emailCell.textContent = application.Email;
+            row.appendChild(emailCell);
 
             const projectCell = document.createElement('td');
             projectCell.textContent = application.Project;
@@ -294,18 +377,60 @@ function displayPartnerApplications() {
             
             const approveButton = document.createElement('button');
             approveButton.textContent = 'Approve';
+            approveButton.classList.add('approve-btn');
             approveButton.onclick = () => approvePartner(application.PartnerID, row, application.Email);
             actionsCell.appendChild(approveButton);
 
             const rejectButton = document.createElement('button');
             rejectButton.textContent = 'Reject';
+            rejectButton.classList.add('reject-btn');
             rejectButton.onclick = () => rejectPartner(application.PartnerID, row, application.Email);
             actionsCell.appendChild(rejectButton);
 
             row.appendChild(actionsCell);
-        }
-        partnerTable.appendChild(row);
-    });
+            partnerTable.appendChild(row);
+        });
+    }
+    
+    // Display approved partners
+    if (approvedPartners.length === 0) {
+        const emptyRow = document.createElement('tr');
+        const emptyCell = document.createElement('td');
+        emptyCell.textContent = 'No approved partners';
+        emptyCell.colSpan = 6;
+        emptyRow.appendChild(emptyCell);
+        approvedTable.appendChild(emptyRow);
+    } else {
+        approvedPartners.forEach(application => {
+            const row = document.createElement('tr');
+            
+            const orgNameCell = document.createElement('td');
+            orgNameCell.textContent = application.OrgName;
+            row.appendChild(orgNameCell);
+
+            const contactPersonCell = document.createElement('td');
+            contactPersonCell.textContent = application.ContactPerson;
+            row.appendChild(contactPersonCell);
+
+            const phoneCell = document.createElement('td');
+            phoneCell.textContent = application.Phone;
+            row.appendChild(phoneCell);
+
+            const emailCell = document.createElement('td');
+            emailCell.textContent = application.Email;
+            row.appendChild(emailCell);
+
+            const projectCell = document.createElement('td');
+            projectCell.textContent = application.Project;
+            row.appendChild(projectCell);
+
+            const orgDescriptionCell = document.createElement('td');
+            orgDescriptionCell.textContent = application.OrgDescription;
+            row.appendChild(orgDescriptionCell);
+
+            approvedTable.appendChild(row);
+        });
+    }
 }
 
 function displayGetInTouchMessages() {
@@ -354,7 +479,8 @@ function approveVolunteer(volunteerId, row, email) {
         return response.json();
     })
     .then(data => {
-        row.remove();
+        // Instead of removing the row, reload all volunteers to update both tables
+        loadVolunteers();
         console.log(`Volunteer application for ${email} approved.`);
     })
     .catch(error => {
@@ -365,11 +491,14 @@ function approveVolunteer(volunteerId, row, email) {
 function rejectVolunteer(volunteerId, row, email) {
     fetch(`/volunteers/deleteVolunteer/${volunteerId}`, {
         method: 'DELETE',
-        body: JSON.stringify({ email })
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email })  // Make sure email is properly formatted as an object
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Failed to delete volunteer');
+            throw new Error(`Failed to delete volunteer: ${response.status} ${response.statusText}`);
         }
         return response.json();
     })
@@ -379,11 +508,12 @@ function rejectVolunteer(volunteerId, row, email) {
     })
     .catch(error => {
         console.error('Error deleting volunteer:', error);
+        alert('Failed to reject volunteer. Please try again.');  // Add user feedback
     });
 }
 
-function approvePartner(volunteerId, row, email) {
-    fetch(`/partners/approvePartner/${volunteerId}`, {
+function approvePartner(partnerId, row, email) {
+    fetch(`/partners/approvePartner/${partnerId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -397,7 +527,8 @@ function approvePartner(volunteerId, row, email) {
         return response.json();
     })
     .then(data => {
-        row.remove();
+        // Instead of removing the row, reload all partners to update both tables
+        loadPartners();
         console.log(`Partner application for ${email} approved.`);
     })
     .catch(error => {
@@ -408,6 +539,9 @@ function approvePartner(volunteerId, row, email) {
 function rejectPartner(partnerId, row, email) {
     fetch(`/partners/deletePartner/${partnerId}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ email })
     })
     .then(response => {

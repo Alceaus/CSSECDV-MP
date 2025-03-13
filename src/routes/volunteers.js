@@ -7,8 +7,9 @@ const query = util.promisify(db.query).bind(db);
 
 router.get('/allVolunteers', async (req, res) => {
     try {
-        const volunteerQuery = 'SELECT * FROM volunteer WHERE Status != ?';
-        const results = await query(volunteerQuery, ['Approved']);
+        // Fetch all volunteers instead of filtering out approved ones
+        const volunteerQuery = 'SELECT * FROM volunteer';
+        const results = await query(volunteerQuery);
         res.json({ success: true, data: results });
     } catch (err) {
         console.error('Error fetching volunteers:', err);

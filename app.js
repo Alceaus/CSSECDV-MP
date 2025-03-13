@@ -14,11 +14,6 @@ const { body, validationResult } = require('express-validator');
 
 const debug = process.env.DEBUG;
 
-const options = {
-    key: fs.readFileSync(path.join(__dirname, 'certs', 'private-key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'certs', 'certificate.pem'))
-};
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -182,6 +177,6 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 3000;
-https.createServer(options, app).listen(port, () => {
-    console.log(`Secure server running on port ${port}`);
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });

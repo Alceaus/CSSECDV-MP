@@ -459,15 +459,6 @@ footer p {
     margin-top: 0; 
 }
 
-.online {
-    color: green;
-}
-
-.offline {
-    color: red;
-}
-
-
 .user-table {
     width: 100%;
     border-collapse: collapse;
