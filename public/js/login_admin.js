@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
     loginForm.addEventListener('submit', function (event) {
         event.preventDefault();
         
+        const recaptchaToken = grecaptcha.getResponse();
         const formData = {
             email: document.getElementById('email').value,
-            password: document.getElementById('password').value
+            password: document.getElementById('password').value,
+            recaptchaToken: recaptchaToken
         };
 
         fetch('/auth/admin/login', {
