@@ -176,12 +176,7 @@ router.post('/login', loginLimiter, async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        const { firstName, mi, lastName, suffix, email, phone, address, createPassword, recaptchaToken } = req.body;
-
-        const isHuman = await verifyRecaptcha(recaptchaToken);
-        if (!isHuman) {
-            return res.status(400).json({ error: 'reCAPTCHA verification failed.' });
-        }
+        const { firstName, mi, lastName, suffix, email, phone, address, createPassword } = req.body;
 
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email)) {
