@@ -182,13 +182,6 @@ document.addEventListener('DOMContentLoaded', function () {
     registerForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const recaptchaToken = grecaptcha.getResponse();
-        if (!recaptchaToken) {
-            loginErrorMessage.textContent = 'Please complete the reCAPTCHA verification.';
-            loginErrorMessage.style.color = 'red';
-            return;
-        }
-
         const formData = {
             firstName: document.getElementById('firstName').value,
             mi: document.getElementById('mi').value,
@@ -197,8 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
             email: document.getElementById('emailRegister').value,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
-            createPassword: document.getElementById('createPassword').value,
-            recaptchaToken: recaptchaToken
+            createPassword: document.getElementById('createPassword').value
         };
 
         fetch('/auth/register', {
