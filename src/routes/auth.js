@@ -1,6 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
+const fetch = require('node-fetch');
 const db = require('../db');
 const { logAuth } = require('../logger');
 const util = require('util');
@@ -35,6 +36,17 @@ function hashPassword(password, salt, pepper) {
             }
         });
     });
+}
+
+async function verifyRecaptcha(token) {
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `secret=${secretKey}&response=${token}`
+    });
+    const data = await response.json();
+    return data.success;
 }
 
 router.get('/checkLogin', (req, res) => {
@@ -116,7 +128,13 @@ router.post('/login', loginLimiter, async (req, res) => {
     }
     
     try {
-        const { email, password } = req.body;
+        const { email, password, recaptchaToken } = req.body;
+
+        const isHuman = await verifyRecaptcha(recaptchaToken);
+        if (!isHuman) {
+            return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed.' });
+        }
+
         const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role != "Admin"';
         const results = await query(loginQuery, [email]);
         
@@ -150,7 +168,12 @@ router.post('/login', loginLimiter, async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        const { firstName, mi, lastName, suffix, email, phone, address, createPassword } = req.body;
+        const { firstName, mi, lastName, suffix, email, phone, address, createPassword, recaptchaToken } = req.body;
+
+        const isHuman = await verifyRecaptcha(recaptchaToken);
+        if (!isHuman) {
+            return res.status(400).json({ error: 'reCAPTCHA verification failed.' });
+        }
 
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailPattern.test(email)) {
