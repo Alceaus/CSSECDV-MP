@@ -18,9 +18,7 @@ npm install (package required)
 ```
 ## Then install the other dependencies:
 ```bash
-npm mysql2
-npm express-session
-npm express-rate-limit
+npm install mysql2 express-session express-rate-limit winston-syslog
 ```
 ## Then run the development server:
 ```bash
@@ -41,3 +39,8 @@ SECRET = secretkey
 PEPPER = (enter pepper key)
 DEBUG = false
 ```
+
+
+To create self-signed certificate
+> openssl genrsa -out private-key.pem 2048
+> openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365

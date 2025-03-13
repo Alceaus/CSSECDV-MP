@@ -13,8 +13,7 @@ const createUser = `
         Address VARCHAR(255),
         Password VARCHAR(255),
         Salt VARCHAR(32),
-        Role VARCHAR(20),
-        Status BOOLEAN
+        Role VARCHAR(20)
     )
 `;
 
@@ -138,8 +137,7 @@ const userData = [
         phone: "1234567890", 
         address: "Real St, Manila", 
         password: "juan",
-        role: "Volunteer", 
-        online: true 
+        role: "Volunteer"
     },
     { 
         fName: "Pepito", 
@@ -148,8 +146,7 @@ const userData = [
         phone: "0987654321", 
         address: "Sampaguita St, Manila", 
         password: "pepito",
-        role: "Donor", 
-        online: false 
+        role: "Donor"
     }
 ];
 
@@ -359,9 +356,9 @@ const initData = async () => {
 
         for (const user of userData) {
             const hashedPassword = await bcrypt.hash(user.password, 10);
-            const insertUserQuery = 'INSERT IGNORE INTO user (FirstName, LastName, Email, Phone, Address, Password, Role, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+            const insertUserQuery = 'INSERT IGNORE INTO user (FirstName, LastName, Email, Phone, Address, Password, Role) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-            db.query(insertUserQuery, [user.fName, user.lName, user.email, user.phone, user.address, hashedPassword, user.role, user.online], (err, result) => {
+            db.query(insertUserQuery, [user.fName, user.lName, user.email, user.phone, user.address, hashedPassword, user.role], (err, result) => {
                 if (err) {
                     console.error('Error inserting user: ', err);
                 } else {
