@@ -88,7 +88,14 @@ router.post('/admin/login', loginLimiter, async (req, res) => {
     }
     
     try {
-        const { email, password } = req.body;
+        const { email, password, recaptchaToken } = req.body;
+        
+        const isHuman = await verifyRecaptcha(recaptchaToken);
+        if (!isHuman) {
+            logAuth(`reCAPTCHA verification failed for Admin ID: ${user.UserID}`);
+            return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed.' });
+        }
+
         const loginQuery = 'SELECT * FROM user WHERE Email = ? AND Role = "Admin"';
         const results = await query(loginQuery, [email]);
         
@@ -132,6 +139,7 @@ router.post('/login', loginLimiter, async (req, res) => {
 
         const isHuman = await verifyRecaptcha(recaptchaToken);
         if (!isHuman) {
+            logAuth(`reCAPTCHA verification failed for User ID: ${user.UserID}`);
             return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed.' });
         }
 
