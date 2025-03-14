@@ -18,6 +18,7 @@
             <ul>
                 <li><a href="#" onclick="loadContent('overview')">Overview</a></li>
                 <li><a href="#" onclick="loadContent('users')">Users</a></li>
+                <li><a href="#" onclick="loadContent('admin')">Admin</a></li>
                 <li><a href="#" onclick="loadContent('volunteerApplication')">Volunteer Application</a></li>
                 <li><a href="#" onclick="loadContent('partnerApplication')">Partner Application</a></li>
                 <li><a href="#" onclick="loadContent('getInTouch')">Get In Touch</a></li> 
@@ -28,8 +29,8 @@
                 <h1 id="section-title">Dashboard</h1>
             </div>
             <div class="dashboard-panels">
+                <!-- Content for overview panel -->
                 <div class="panel" id="panel-overview">
-                    <!-- Content for overview panel -->
                     <div class="panel-content">
                         <!-- Website Visits Summary -->
                         <div class="summary-item">
@@ -39,6 +40,11 @@
                         <div class="summary-item">
                             <h3>Users</h3>
                             <div id="users-summary-graph" class="summary-graph"></div>
+                        </div>
+                        <!-- Admin Summary -->
+                        <div class="summary-item">
+                            <h3>Admin</h3>
+                            <div id="admin-summary-graph" class="summary-graph"></div>
                         </div>
                         <!-- Volunteer Applications Summary -->
                         <div class="summary-item">
@@ -70,6 +76,7 @@
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Role</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="user-list">
@@ -78,8 +85,24 @@
                         </table>
                     </div>
                 </div>
+                <!-- Content for admin panel -->
+                <div class="panel" id="panel-admin" style="display: none;">
+                    <div class="panel-content">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>ID Number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-list">
+                                <!-- Admin list will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Content for volunteer application panel -->
                 <div class="panel" id="panel-volunteerApplication" style="display: none;">
-                    <!-- Content for volunteer application panel -->
                     <div class="panel-content">
                         <h2>Pending Applications</h2>
                         <table class="application-table">
@@ -119,8 +142,8 @@
                         </table>
                     </div>
                 </div>
+                <!-- Content for partner application panel -->
                 <div class="panel" id="panel-partnerApplication" style="display: none;">
-                    <!-- Content for partner application panel -->
                     <div class="panel-content">
                         <h2>Pending Applications</h2>
                         <table class="application-table">
@@ -158,9 +181,8 @@
                         </table>
                     </div>
                 </div>
-                
+                <!-- Content for Get in Touch panel -->
                 <div class="panel" id="panel-getInTouch" style="display: none;">
-                    <!-- Content for Get in Touch panel -->
                     <div class="panel-content">
                         <table class="get-in-touch-table">
                             <thead>
