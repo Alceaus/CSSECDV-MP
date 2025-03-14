@@ -8,6 +8,38 @@
     <link rel="stylesheet" href="css/Feedback.css">
     <link rel="stylesheet" href="css/donate-popup.css">
     <link rel="stylesheet" href="css/iframe.css">
+    <style>
+        .feedback-form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .feedback-display {
+            margin-top: 30px;
+        }
+        .feedback-entry {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -78,102 +110,59 @@
             <div class="testimonials">
                 <h2>What Clients Say</h2>
                 <p>We place huge value on strong relationships and have seen the benefit they bring to our business. Customer feedback is vital in helping us to get it right.</p>
-                <button class="feedback-btn" onclick="openBothPopups()">Send Us Your Feedback</button>
+                
+                <!-- New Feedback Form -->
+                <div class="feedback-form">
+                    <form id="feedbackForm">
+                        <div class="input-group">
+                            <label for="feedbackText">Your Feedback:</label>
+                            <input type="text" 
+                                   id="feedbackText" 
+                                   name="feedbackText" 
+                                   required 
+                                   placeholder="Share your experience">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="rating">Rating (1-10):</label>
+                            <input type="number" 
+                                   id="rating" 
+                                   name="rating" 
+                                   min="1" 
+                                   max="10" 
+                                   required 
+                                   placeholder="Enter a rating from 1 to 10">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="satisfactionScore">Satisfaction Score (1-100):</label>
+                            <input type="number" 
+                                   id="satisfactionScore" 
+                                   name="satisfactionScore" 
+                                   min="1" 
+                                   max="100" 
+                                   required 
+                                   placeholder="Enter a score from 1 to 100">
+                        </div>
+
+                        <button type="submit" class="feedback-btn">Submit Feedback</button>
+                    </form>
+
+                    
+                </div>
+
                 <div class="testimonial-container">
-                    <div class="testimonial-cards">
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                            <h3>Nat Reynolds</h3>
-                            <p>Chief Accountant</p>
-                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
+                    
+                        <div class="testimonial-card" id="feedbackEntries" >
+                            
                         </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                            <h3>Celia Almeda</h3>
-                            <p>Secretary</p>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                            <h3>Nat Reynolds</h3>
-                            <p>Chief Accountant</p>
-                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                            <h3>Celia Almeda</h3>
-                            <p>Secretary</p>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                            <h3>Nat Reynolds</h3>
-                            <p>Chief Accountant</p>
-                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                            <h3>Celia Almeda</h3>
-                            <p>Secretary</p>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                            <h3>Nat Reynolds</h3>
-                            <p>Chief Accountant</p>
-                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                            <h3>Celia Almeda</h3>
-                            <p>Secretary</p>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Nat Reynolds" class="testimonial-img">
-                            <h3>Nat Reynolds</h3>
-                            <p>Chief Accountant</p>
-                            <p>Vitae suscipit tellus mauris a diam maecenas sed enim ut. Mauris augue neque gravida in fermentum. Praesent semper feugiat nibh sed pulvinar proin.</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <img src="images/founders/Lou Marxis Gallevo.jpg" alt="Celia Almeda" class="testimonial-img">
-                            <h3>Celia Almeda</h3>
-                            <p>Secretary</p>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Quisque id diam vel quam elementum pulvinar etiam.</p>
-                        </div>
-                        <!-- More testimonial cards... -->
+                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 
-    <div id="feedbackPopup" class="popup">
-        <div class="popup-content">
-            <span class="close-btn" onclick="closeFeedbackPopup()">&times;</span>
-            <h2>We value your opinion!</h2>
-            <form>
-                <label for="experience">How would you rate your experience?</label>
-                <div class="rating">
-                    <span>😞</span>
-                    <span>😐</span>
-                    <span>😊</span>
-                    <span>😁</span>
-                </div>
-                <input type="email" placeholder="Enter email..." required>
-                <textarea placeholder="Enter text..."></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </div>
-    <div class="login-popup" id="loginPopup">
-        <div class="login-popup-content">
-            <span class="close-btn" onclick="closeLoginPopup()">&times;</span>
-            <p>You need to log in first. Please log in to continue.</p>
-        </div>
-    </div>
-    
     <footer>
         <div class="footer-content">
             <img src="images/logo.png" alt="Footer Logo" class="footer-logo">
@@ -209,6 +198,68 @@
         </div>
     </footer>
     
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                textInput: document.getElementById('feedbackText').value,
+                numericInput1: document.getElementById('rating').value,
+                numericInput2: document.getElementById('satisfactionScore').value
+            };
+
+            try {
+                const response = await fetch('/api/save-inputs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    loadFeedback();
+                    e.target.reset();
+                    alert('Feedback submitted successfully!');
+                } else {
+                    console.error('Server Error:', data);
+                    alert('Error saving feedback: ' + (data.message || 'Unknown error occurred'));
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error saving feedback. Please try again.');
+            }
+        });
+
+        async function loadFeedback() {
+    try {
+        const response = await fetch('/api/get-inputs');
+        const data = await response.json();
+        const displayArea = document.getElementById('feedbackEntries');
+        
+        displayArea.style.display = 'flex'; // Make the container flex
+        displayArea.style.overflowX = 'auto'; // Enable horizontal scrolling
+        displayArea.style.gap = '20px'; // Add space between cards
+        
+        displayArea.innerHTML = data.map(item => `
+            <div class="feedback-entry" style="flex: 0 0 auto; min-width: 300px;">
+                <p><strong>Feedback:</strong> ${item.text_input}</p>
+                <p><strong>Rating:</strong> ${item.numeric_input1}/10</p>
+                <p><strong>Satisfaction Score:</strong> ${item.numeric_input2}/100</p>
+                <p><small>Submitted: ${new Date(item.created_at).toLocaleString()}</small></p>
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error('Error:', err);
+    }
+}
+
+
+        // Load feedback when page loads
+        loadFeedback();
+    </script>
     <script src="js/Feedback.js"></script>
     <script src="js/donate-popup.js"></script>
 </body>
