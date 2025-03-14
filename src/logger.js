@@ -45,6 +45,6 @@ const adminLogger = logger(path.join(logPath, "admin.log"), "ADMIN_LOGS");
 
 module.exports = {
     logAuth: (message) => authLogger.info(`[AUTH] ${message}`),
-    logTransaction: (message) => transactionLogger.info(`[TRANSACTION] ${message}`),
+    logUser: (message) => transactionLogger.info(`[USER] ${message}`),
     logAdmin: (message) => adminLogger.info(`[ADMIN] ${message}`),
 };
