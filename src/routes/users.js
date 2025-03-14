@@ -39,16 +39,16 @@ router.get('/allUserDetails', async (req, res) => {
     }
 });
 
-router.put('/editUser/:id', async (req, res) => {
+router.put('/editProfile', async (req, res) => {
     try {
-        const { id } = req.params;
-        const { firstName, lastName, phone, address } = req.body;
+        const { name, phone, address } = req.body;
         const userId = req.session.userId;
+        const [firstName, lastName] = name.split(' ');
 
         const updateStoryQuery = 'UPDATE user SET FirstName = ?, LastName = ?, Phone = ?, Address = ? WHERE UserID = ?';
-        await query(updateStoryQuery, [firstName, lastName, phone, address, id]);
+        await query(updateStoryQuery, [firstName, lastName, phone, address, userId]);
 
-        logUser(`User ID: ${userId} updated user profile of user ID: ${id}`);
+        logUser(`User ID: ${userId} updated their user profile`);
         res.json({ success: true });
     } catch (err) {
         logUser(`Error editing user: ${err.message}`);
