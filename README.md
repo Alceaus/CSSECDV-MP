@@ -44,3 +44,7 @@ DEBUG = false
 To create self-signed certificate
 > openssl genrsa -out private-key.pem 2048
 > openssl req -new -x509 -key private-key.pem -out certificate.pem -days 365
+
+
+for testing error message
+> npm install --save-dev jest supertest express
