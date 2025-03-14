@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('../db');
-const { logAdmin } = require('../logger');
+const { logAdmin, logUser } = require('../logger');
 const util = require('util');
 const router = express.Router();
 const query = util.promisify(db.query).bind(db);
@@ -24,6 +24,35 @@ router.get('/allAdmin', async (req, res) => {
     } catch (err) {
         console.error('Error fetching admin:', err);
         res.status(500).json({ success: false, message: 'An error occurred while fetching the admin' });
+    }
+});
+
+router.get('/allUserDetails', async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const userQuery = 'SELECT * FROM user WHERE UserID = ?';
+        const results = await query(userQuery, [userId]);
+        res.json({ success: true, data: results[0] });
+    } catch (err) {
+        console.error('Error fetching user details:', err);
+        res.status(500).json({ success: false, message: 'An error occurred while fetching the user details' });
+    }
+});
+
+router.put('/editUser/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstName, lastName, phone, address } = req.body;
+        const userId = req.session.userId;
+
+        const updateStoryQuery = 'UPDATE user SET FirstName = ?, LastName = ?, Phone = ?, Address = ? WHERE UserID = ?';
+        await query(updateStoryQuery, [firstName, lastName, phone, address, id]);
+
+        logUser(`User ID: ${userId} updated user profile of user ID: ${id}`);
+        res.json({ success: true });
+    } catch (err) {
+        logUser(`Error editing user: ${err.message}`);
+        res.status(500).json({ success: false, message: 'An error occurred while editing the user' });
     }
 });
 
