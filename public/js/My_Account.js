@@ -1,9 +1,49 @@
-let user = [];
-
 document.addEventListener("DOMContentLoaded", function () {
+    // For editing user details
+    const saveBtn = document.getElementById("save-btn");
+    const cancelBtn = document.getElementById("cancel-btn");
+
+    if (saveBtn) {
+        saveBtn.addEventListener("click", function () {
+            // Collect updated user data
+            const updatedUser = {
+                name: document.getElementById("profile-name")?.textContent.trim(),
+                contact: document.getElementById("contact-number")?.value.trim(),
+                address: document.getElementById("address")?.value.trim(),
+            };
+
+            fetch("/users/editProfile", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedUser),
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to save user profile");
+                    return response.json();
+                })
+                .then(data => {
+                    alert("Profile updated successfully!");
+                    console.log("Server response:", data);
+                })
+                .catch(error => {
+                    console.error("Error saving profile:", error);
+                    alert("Error saving profile. Please try again.");
+                });
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", function () {
+            alert("Changes canceled.");
+            window.location.reload();
+        });
+    }
+
     // Toggle Edit Mode
     function toggleEditMode(enable) {
-        const editableFields = ["profile-name", "contact-number", "email-address", "address"];
+        const editableFields = ["profile-name", "contact-number", "address"];
 
         editableFields.forEach(id => {
             const el = document.getElementById(id);
@@ -13,10 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        ["edit-buttons-profile", "edit-buttons-volunteer", "edit-buttons-details", "edit-buttons-contact", "profile-pic-upload", "add-skill-btn"]
+        ["edit-buttons-contact"]
             .forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.style.display = enable ? "block" : "none";
+                if (el) el.style.display = enable ? "flex" : "none";
             });
     }
 
