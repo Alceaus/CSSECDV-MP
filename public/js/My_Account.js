@@ -1,172 +1,85 @@
-document.addEventListener("DOMContentLoaded", function() {
+let user = [];
 
-    // Only update date and time if the datetime element exists
-    const datetimeElement = document.getElementById('datetime');
-    if (datetimeElement) {
-        function updateDateTime() {
-            const now = new Date();
-            const options = { 
-                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            };
-            const formattedDateTime = now.toLocaleDateString('en-US', options);
-            datetimeElement.innerHTML = formattedDateTime;
-        }
-        
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    // Toggle Edit Mode
+    function toggleEditMode(enable) {
+        const editableFields = ["profile-name", "contact-number", "email-address", "address"];
 
-    const dropdownItems = document.querySelectorAll("nav ul li");
-    dropdownItems.forEach(item => {
-        item.addEventListener("click", function() {
-            this.classList.toggle("active");
-        });
-    });
-
-    const userSwitch = document.getElementById('userSwitch');
-    const adminSwitch = document.getElementById('adminSwitch');
-
-    userSwitch.addEventListener('click', () => {
-        userSwitch.classList.add('active');
-        adminSwitch.classList.remove('active');
-    });
-
-    adminSwitch.addEventListener('click', () => {
-        adminSwitch.classList.add('active');
-        userSwitch.classList.remove('active');
-    });
-
-    const modal = document.getElementById('myModal');
-    const passkeyDigits = document.querySelectorAll('.passkey-digit');
-    const lockIcon = document.getElementById('lockIcon');
-    const span = document.getElementsByClassName('close')[0];
-
-    adminSwitch.addEventListener('click', function() {
-        modal.style.display = 'block';
-        passkeyDigits[0].focus();
-    });
-
-    span.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
-
-    passkeyDigits.forEach((input, index) => {
-        input.addEventListener('input', function() {
-            if (input.value.length === 1 && index < passkeyDigits.length - 1) {
-                passkeyDigits[index + 1].focus();
+        editableFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.setAttribute("contenteditable", enable);
+                el.readOnly = !enable;
             }
         });
-    });
 
-    document.getElementById('passkeySubmit').addEventListener('click', function() {
-        const passkey = Array.from(passkeyDigits).map(input => input.value).join('');
-        if (passkey === '1234') {
-            lockIcon.src = '../UI/images/pin_unlocked.png';
-            showLoadingAndRedirect('index.html');
-        } else {
-            lockIcon.src = '../UI/images/pin_lock.png';
-            passkeyDigits.forEach(input => input.value = '');
-            passkeyDigits[0].focus();
-            alert('Incorrect pin. Please try again.');
-        }
-    });
-
-    function showLoadingAndRedirect(url) {
-        document.body.insertAdjacentHTML('beforeend', `
-            <div id="loadingContainer" class="loading-container">
-                <div class="loading-animation"></div>
-            </div>
-        `);
-        setTimeout(() => {
-            window.location.href = url;
-        }, 3000); 
+        ["edit-buttons-profile", "edit-buttons-volunteer", "edit-buttons-details", "edit-buttons-contact", "profile-pic-upload", "add-skill-btn"]
+            .forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = enable ? "block" : "none";
+            });
     }
+
+    // Tab Navigation
+    window.openTab = function (evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    };
+
+    // Highlight Tab and Toggle Edit Mode
+    window.highlightTab = function (evt) {
+        document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
+        evt.currentTarget.classList.add("active");
+
+        toggleEditMode(evt.currentTarget.id === "edit-profile-tab");
+    };
+
+    // Load Profile and Default Tab
+    loadUserDetails();
+    document.getElementById("personal-tab")?.click();
 });
 
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tab-button");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+function loadUserDetails() {
+    fetch('/users/allUserDetails')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch user details: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(({ success, data }) => {
+            if (!success || !data) {
+                throw new Error('Invalid data format or empty response');
+            }
+            const mergedUser = mergeUserData(data);
+            displayUserDetails(mergedUser);
+        })
+        .catch(error => {
+            console.error('Error loading user details:', error);
+        });
 }
 
-function highlightTab(evt) {
-    var i, menuItems;
-    menuItems = document.getElementsByClassName("menu-item");
-    for (i = 0; i < menuItems.length; i++) {
-        menuItems[i].className = menuItems[i].className.replace(" active", "");
-    }
-    evt.currentTarget.className += " active";
-
-    if (evt.currentTarget.id === "edit-profile-tab") {
-        document.getElementById("profile-name").setAttribute("contenteditable", "true");
-        document.getElementById("profile-role").setAttribute("contenteditable", "true");
-        document.getElementById("profile-statement").setAttribute("contenteditable", "true");
-        document.getElementById("edit-buttons-profile").style.display = "block";
-    } else {
-        document.getElementById("profile-name").setAttribute("contenteditable", "false");
-        document.getElementById("profile-role").setAttribute("contenteditable", "false");
-        document.getElementById("profile-statement").setAttribute("contenteditable", "false");
-        document.getElementById("edit-buttons-profile").style.display = "none";
-    }
-
-    // Other existing code for readonly attributes and edit-buttons visibility
-    if (evt.currentTarget.id === "edit-profile-tab") {
-        document.getElementById("contact-number").removeAttribute("readonly");
-        document.getElementById("email-address").removeAttribute("readonly");
-        document.getElementById("birthday").removeAttribute("readonly");
-        document.getElementById("address").removeAttribute("readonly");
-        document.getElementById("career").removeAttribute("readonly");
-        document.getElementById("passions").removeAttribute("readonly");
-        document.getElementById("skills").removeAttribute("readonly");
-
-        document.getElementById("edit-buttons-volunteer").style.display = "block";
-        document.getElementById("edit-buttons-details").style.display = "block";
-        document.getElementById("edit-buttons-contact").style.display = "block";
-        document.getElementById("profile-pic-upload").style.display = "block"; // Show profile pic upload button
-        document.getElementById("add-skill-btn").style.display = "inline"; 
-    } else {
-        document.getElementById("contact-number").setAttribute("readonly", true);
-        document.getElementById("email-address").setAttribute("readonly", true);
-        document.getElementById("birthday").setAttribute("readonly", true);
-        document.getElementById("address").setAttribute("readonly", true);
-        document.getElementById("career").setAttribute("readonly", true);
-        document.getElementById("passions").setAttribute("readonly", true);
-        document.getElementById("skills").setAttribute("readonly", true);
-
-        document.getElementById("edit-buttons-volunteer").style.display = "none";
-        document.getElementById("edit-buttons-details").style.display = "none";
-        document.getElementById("edit-buttons-contact").style.display = "none";
-        document.getElementById("profile-pic-upload").style.display = "none"; // Hide profile pic upload button
-        document.getElementById("add-skill-btn").style.display = "none"; 
-    }
+// Helper function to merge database data with localStorage extras
+function mergeUserData(user) {
+    return {
+        name: user.FirstName + ' ' + user.LastName,
+        id: "ID: " + user.UserID,
+        role: "Role: " + user.Role,
+        contact: user.Phone || 'Not Provided',
+        email: user.Email,
+        address: user.Address || 'Not Provided'
+    };
 }
 
-
-
-function addSkill() {
-    var skillsContainer = document.getElementById("skills-container");
-    var newSkillInput = document.createElement("input");
-    newSkillInput.type = "text";
-    newSkillInput.placeholder = "Add another skill";
-    skillsContainer.appendChild(newSkillInput);
-    skillsContainer.appendChild(document.getElementById("add-skill-btn"));
+// Example function to display user details (customize as needed)
+function displayUserDetails(user) {
+    document.getElementById('profile-name').textContent = user.name;
+    document.getElementById('profile-id').textContent = user.id;
+    document.getElementById('profile-role').textContent = user.role;
+    document.getElementById('contact-number').value = user.contact;
+    document.getElementById('email-address').value = user.email;
+    document.getElementById('address').value = user.address;
 }
-
-
-// Ensure the PERSONAL tab is highlighted by default
-document.getElementById("personal-tab").click();
