@@ -73,6 +73,7 @@ app.post('/api/save-inputs', [
     body('numericInput2').isInt({ min: 1, max: 100 }).withMessage('Satisfaction score must be between 1 and 100')], 
     async (req, res, next) => {
     try {
+        console.log('Received feedback data:', req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ message: 'Validation error', errors: errors.array()});
@@ -84,9 +85,19 @@ app.post('/api/save-inputs', [
             INSERT INTO feedback (text_input, numeric_input1, numeric_input2)
             VALUES (?, ?, ?)`;
 
-        db.query(query, [textInput, numericInput1, numericInput2], (err, result) => {
+            db.query('SELECT 1', (err, results) => {
+                if (err) {
+                    console.error('Database connection failed:', err);
+                } else {
+                    console.log('Database connected successfully');
+                }
+            });
+
+            db.query(query, [textInput, numericInput1, numericInput2], (err, result) => {
                 if (err) {
                     console.error('Database error:', err);
+                    console.error('Query:', query);
+                    console.error('Values:', [textInput, numericInput1, numericInput2]);
                     return res.status(500).json({
                         message: 'Error saving to database',
                         error: err.message
