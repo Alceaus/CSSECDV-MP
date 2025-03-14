@@ -162,26 +162,31 @@ initData();
 
 
 
+
 app.use((err, req, res, next) => {
-    console.log(`${req.method} ${req.path}`, req.body);
-    next();
+    console.error(`[${new Date().toISOString()}] ERROR: ${req.method} ${req.path}`, {
+        body: req.body,
+        error: err.message,
+        stack: err.stack
+    }); 
 
-    console.error(err);
+    const statusCode = err.status || 500;
+    const debug = process.env.DEBUG === 'true';
 
-    
-    if (debug === 'true') {
-        res.status(err.status || 500).json({
+    if (debug) {
+        res.status(statusCode).json({
             error: {
-                message: err.message,
+                message: err.message || 'Internal Server Error',
                 stack: err.stack,
                 details: err
             }
         });
     } else {
-        const genericMessage = 'An error occurred while processing your request.';
-        res.status(err.status || 500).json({
+        res.status(statusCode).json({
             error: {
-                message: genericMessage
+                message: statusCode === 404 
+                    ? 'The resource you are looking for does not exist.' 
+                    : 'An error occurred while processing your request.'
             }
         });
     }
