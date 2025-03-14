@@ -459,26 +459,26 @@ footer p {
     margin-top: 0; 
 }
 
-.user-table {
+.user-table,
+.admin-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
 .user-table th,
-.user-table td {
+.user-table td,
+.admin-table th,
+.admin-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
 
-.user-table th {
+.user-table th,
+.admin-table th {
     background-color: #f2f2f2;
     margin-right: 10px; 
-}
-
-.user-table td:last-child {
-    text-align: center;
 }
 
 .panel-content h3 {
