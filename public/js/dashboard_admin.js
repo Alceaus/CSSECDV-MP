@@ -1,6 +1,7 @@
 let visitorCounts = [];
 let isOverview = 1;
 let users = [];
+let admin = [];
 let partnerApplications = [];
 let volunteerApplications = [];
 let getInTouchMessages = [];
@@ -35,10 +36,13 @@ function loadContent(content) {
     if (content === 'overview') {
         isOverview = 1;
         loadUsers();
+        loadAdmins();
         loadVolunteers();
         loadPartners();
     } else if (content === 'users') {
         loadUsers();
+    } else if (content === 'admin') {
+        loadAdmins();
     } else if (content === 'volunteerApplication') {
         loadVolunteers();
     } else if (content === 'partnerApplication') {
@@ -79,6 +83,23 @@ function loadUsers() {
         })
         .catch(error => {
             console.error('Error loading users:', error);
+        });
+}
+
+function loadAdmins() {
+    fetch('/users/allAdmin')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch admin');
+            }
+            return response.json();
+        })
+        .then(data => {
+            admin = data.data;
+            displayAdminList();
+        })
+        .catch(error => {
+            console.error('Error loading admin:', error);
         });
 }
 
@@ -180,8 +201,64 @@ function displayUserList() {
             const roleCell = document.createElement('td');
             roleCell.textContent = user.Role;
             listItem.appendChild(roleCell);
+
+            const actionsCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete Account';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.addEventListener('click', () => deleteUser(user.UserID, listItem));
+            actionsCell.appendChild(deleteButton);
+            listItem.appendChild(actionsCell);
         }
         userList.appendChild(listItem);
+    });
+}
+
+function deleteUser(userId, listItem) {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+
+    fetch(`/users/deleteUser/${userId}`, { method: 'DELETE' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete user');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('User deleted successfully');
+                listItem.remove();
+            } else {
+                alert('Failed to delete user: ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('Error deleting user: ' + error.message);
+        });
+}
+
+function displayAdminList() {
+    if (isOverview == 0) {
+        var adminList = document.getElementById('admin-list');
+    } else if (isOverview == 1) {
+        var adminList = document.getElementById('admin-summary-graph');
+    }
+    adminList.innerHTML = '';
+
+    admin.forEach(function(admin) {
+        const listItem = document.createElement('tr');
+        listItem.classList.add('admin-item');
+
+        const emailCell = document.createElement('td');
+        emailCell.textContent = admin.Email;
+        listItem.appendChild(emailCell);
+
+        if (isOverview == 0) {
+            const idNumberCell = document.createElement('td');
+            idNumberCell.textContent = admin.UserID;
+            listItem.appendChild(idNumberCell);
+        }
+        adminList.appendChild(listItem);
     });
 }
 
