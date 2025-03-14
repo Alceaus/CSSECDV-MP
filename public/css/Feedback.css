@@ -549,26 +549,23 @@ footer p {
 }
 
 .testimonial-container {
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 0 20px; 
+    width: 100%;
+    overflow-x: auto;
 }
 
 .testimonial-cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-auto-flow: column; /* Makes grid flow horizontally */
+    grid-auto-columns: 300px; /* Fixed width for each column */
     gap: 20px;
+    padding: 20px;
 }
 
 .testimonial-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding: 20px;
-    width: calc(25% - 20px); 
-    text-align: center;
-    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
 }
 
 .testimonial-img {
